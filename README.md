@@ -14,9 +14,9 @@ A decentralized marketplace for stock Images, solving for high fees, copyright m
 
 ### Polygon zkEVM testnet
 
-- [UserManager]()
-- [Marketplace]()
-- [OwnerProver]()
+- [UserManager](https://testnet-zkevm.polygonscan.com/address/0xb58862ab4a1849642a955ed80c63ee90ea1ef41e)
+- [Marketplace](https://testnet-zkevm.polygonscan.com/address/)
+- [OwnerProver](https://testnet-zkevm.polygonscan.com/address/)
 
 ### Scroll testnet
 

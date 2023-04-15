@@ -37,7 +37,7 @@ deploy-scroll:
 	forge script script/Deploy.s.sol --rpc-url ${RPC_URL} --broadcast --legacy
 
 deploy-zk-polygon:
-	forge script script/Deploy.s.sol --rpc-url ${RPC_URL} --broadcast
+	forge script script/Deploy.s.sol --rpc-url ${RPC_URL} --broadcast --legacy
 
 deploy-taiko:
 	forge script script/Deploy.s.sol --rpc-url ${RPC_URL} --broadcast --legacy
