@@ -40,7 +40,7 @@ deploy-zk-polygon:
 	forge script script/Deploy.s.sol --rpc-url ${RPC_URL} --broadcast
 
 deploy-taiko:
-	forge script script/Deploy.s.sol --rpc-url ${RPC_URL} --broadcast
+	forge script script/Deploy.s.sol --rpc-url ${RPC_URL} --broadcast --legacy
 
 deploy-celo:
 	forge script script/Deploy.s.sol --rpc-url ${RPC_URL} --broadcast

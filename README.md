@@ -32,6 +32,6 @@ A decentralized marketplace for stock Images, solving for high fees, copyright m
 
 ### Taiko Alpha2 testnet
 
-- UserManager
-- Marketplace
-- OwnerProver
+- [UserManager](https://l2explorer.hackathon.taiko.xyz/address/0xb58862ab4a1849642a955ED80c63ee90EA1Ef41e)
+- [Mmarketplace](https://l2explorer.hackathon.taiko.xyz/address/0x5fFe856b40dC0722F7B84719650DB2FbAB6D3747)
+- [OwnerProver](https://l2explorer.hackathon.taiko.xyz/address/0x3cC706Be2885b89D2c730Aba119d9f7215A9413F)
