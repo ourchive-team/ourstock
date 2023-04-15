@@ -1,6 +1,6 @@
-import { SetterOrUpdater } from 'recoil';
-import { TokenItem } from '../Components/ImageComponents/ImageSkeletonRenderer';
-import { TPublicKeyState } from '../states/loginState';
+import {SetterOrUpdater} from 'recoil';
+import {TokenItem} from '../Components/ImageComponents/ImageSkeletonRenderer';
+import {TPublicKeyState} from '../states/loginState';
 
 export interface ImageInfo {
   title: string;

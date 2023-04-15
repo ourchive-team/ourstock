@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { addressState } from '../../../states/loginState';
+import React, {useEffect, useState} from 'react';
+import {useRecoilState} from 'recoil';
+import {addressState} from '../../../states/loginState';
 
 import ImageSkeletonRenderer from '../../../Components/ImageComponents/ImageSkeletonRenderer';
-import { onchain } from '../../../func';
-import { downloadFromIPFS } from '../../../func/ipfs';
-import { TokenPurchaseItem } from '../../../func/type';
-import { baseColor, StyledSpan } from '../../../styles';
+import {onchain} from '../../../func';
+import {downloadFromIPFS} from '../../../func/ipfs';
+import {TokenPurchaseItem} from '../../../func/type';
+import {baseColor, StyledSpan} from '../../../styles';
 import CreatorInfo from '../../../Components/CreatorInfo';
 import profileIcon from '../../../images/profile-icon.png';
 import TopNavigator from '../../../Components/NavigatorComponents/TopNavigator';

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 // @ts-ignore
 import s1 from '../../images/s1.jpg';
 // @ts-ignore
@@ -26,12 +26,12 @@ import flagIcon from '../../icons/flag.svg';
 import profileIcon from '../../images/profile-icon.png';
 import FeedStatusBar from '../../Components/FeedStatusBar';
 import Resolution from '../../Components/Resolution';
-import ImageSkeletonRenderer, { TokenItem } from '../../Components/ImageComponents/ImageSkeletonRenderer';
+import ImageSkeletonRenderer, {TokenItem} from '../../Components/ImageComponents/ImageSkeletonRenderer';
 import BottomContainer from '../../Components/NavigatorComponents/BottomContainer';
 import CreatorInfo from '../../Components/CreatorInfo';
-import { onchain } from '../../func';
-import { ImageInfo } from '../../func/type';
-import { baseColor, ImageContainer, LargeButton, PaddingBox } from '../../styles';
+import {onchain} from '../../func';
+import {ImageInfo} from '../../func/type';
+import {baseColor, ImageContainer, LargeButton, PaddingBox} from '../../styles';
 
 const ImageDetailsPage = () => {
   const nav = useNavigate();

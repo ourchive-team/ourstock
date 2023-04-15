@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { baseColor, LargeButton, PaddingBox, StyledInput, StyledSpan } from '../../../styles';
+import React, {useState} from 'react';
+import {baseColor, LargeButton, PaddingBox, StyledInput, StyledSpan} from '../../../styles';
 import TopNavigator from '../../../Components/NavigatorComponents/TopNavigator';
-import Resolution, { IResolutionList } from '../../../Components/Resolution';
+import Resolution, {IResolutionList} from '../../../Components/Resolution';
 import BottomContainer from '../../../Components/NavigatorComponents/BottomContainer';
-import { onchain } from '../../../func';
+import {onchain} from '../../../func';
 
 const PurchasePage = () => {
   const pathItems = window.location.pathname.split('/');

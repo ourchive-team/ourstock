@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { baseColor } from '../../styles';
+import {baseColor} from '../../styles';
 
 export interface IResolutionList {
   size: string;

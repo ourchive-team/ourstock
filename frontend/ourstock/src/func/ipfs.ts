@@ -1,6 +1,6 @@
-import { create as ipfsHttpClient } from 'ipfs-http-client';
-import { Buffer } from 'buffer';
-import { IDownloadImage } from './type';
+import {create as ipfsHttpClient} from 'ipfs-http-client';
+import {Buffer} from 'buffer';
+import {IDownloadImage} from './type';
 
 const projectId = process.env.REACT_APP_INFURA_PROJECT_ID;
 const projectSecretKey = process.env.REACT_APP_INFURA_PROJECT_KEY;

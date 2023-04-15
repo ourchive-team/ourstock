@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { baseColor, LargeButton, PaddingBox, StyledInput, StyledSpan } from '../../../styles';
+import React, {useEffect, useState} from 'react';
+import {useRecoilState} from 'recoil';
+import {baseColor, LargeButton, PaddingBox, StyledInput, StyledSpan} from '../../../styles';
 import TopNavigator from '../../../Components/NavigatorComponents/TopNavigator';
 import ImageSkeletonRenderer from '../../../Components/ImageComponents/ImageSkeletonRenderer';
 import CreatorInfo from '../../../Components/CreatorInfo';
@@ -8,10 +8,10 @@ import CenteredModal from '../../../Components/CenteredModal';
 
 import profileIcon from '../../../images/profile-icon.png';
 import BottomContainer from '../../../Components/NavigatorComponents/BottomContainer';
-import { onchain } from '../../../func';
-import { dateToString } from '../../../func/util';
-import { IProveItem } from '../../../func/type';
-import { nicknameState } from '../../../states/loginState';
+import {onchain} from '../../../func';
+import {dateToString} from '../../../func/util';
+import {IProveItem} from '../../../func/type';
+import {nicknameState} from '../../../states/loginState';
 
 interface IProveStatus {
   proveStatus: 0 | 1 | 2 | 3;
