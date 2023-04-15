@@ -289,7 +289,7 @@ const ImageDetailsPage = () => {
         <span style={{ fontSize: '18px', color: imageInfo?.title ? 'black' : 'white' }}>{imageInfo?.title || '.'}</span>
       </TopNavigator>
       <PaddingBox>
-        <ImageContainer style={{ minHeight: '300px', height: '300px' }}>
+        <ImageContainer style={{ minHeight: '300px', height: '300px', borderRadius:'8px' }}>
           <img style={{ width: 'fit-content', maxWidth: '100%' }} src={imageInfo?.imgUrl} alt={imageInfo?.title} />
         </ImageContainer>
       </PaddingBox>
