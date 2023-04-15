@@ -216,11 +216,8 @@ export class EvmOnChainImpl implements OnChainCommunicator {
 
     public async buyImage(nft: IBuyImage): Promise<void> {
         try {
-            console.log("buyImage: ", nft.creator, nft.imageTitle);
-            const { id } = await this.marketplaceContract.getImageByCreatorAndName(nft.creator, nft.imageTitle);
-            console.log("buyImage: ", id);
-
-            await this.marketplaceContract.purchaseImage(id, {gasLimit: 10000000});
+            const { id, price } = await this.marketplaceContract.getImageByCreatorAndName(nft.creator, nft.imageTitle);
+            await this.marketplaceContract.purchaseImage(Number(id), { value: price, gasLimit: 10000000 });
         } catch (err) {
             console.log(err);
             throw (err);
