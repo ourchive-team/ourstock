@@ -18,6 +18,7 @@ contract Marketplace is ERC1155 {
     uint256 public latest_id = 0;
     StockImage[] public stock_images;
     mapping(address => uint256[]) creator_to_stock_image_ids;
+    mapping(address => uint256[]) owner_to_stock_image_ids;
 
     constructor() ERC1155("") {}
 
@@ -58,5 +59,25 @@ contract Marketplace is ERC1155 {
                 revert DuplicatedImageName();
             }
         }
+    }
+
+    function purchaseImage(uint256 _image_id) external payable {
+        require(_image_id < latest_id, "Image not found");
+
+        uint256 price = stock_images[_image_id].price;
+        require(msg.value >= price, "Not enough eth");
+
+        // transfer eth to creator
+        address creator = stock_images[_image_id].creator;
+        payable(creator).transfer(price);
+
+        // refund exceeded eth
+        if (msg.value > price) {
+            payable(msg.sender).transfer(msg.value - price);
+        }
+
+        // mint the stock image to the buyer
+        _mint(msg.sender, _image_id, 1, "");
+        owner_to_stock_image_ids[msg.sender].push(_image_id);
     }
 }
