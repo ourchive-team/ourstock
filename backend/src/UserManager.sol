@@ -4,16 +4,21 @@ error Unauthorized();
 error EmptyNicknameNotAllowed();
 
 contract UserManager {
-    string[] public nicknames;
-    mapping(address => uint256) userNicknameIds;
+    address[] public addresses;
+    mapping(address => string) addressToNickname;
 
     function getUserNickname(address _account) external view returns (string memory) {
-        return nicknames[userNicknameIds[_account]];
+        for (uint256 i = 0; i < addresses.length; i++) {
+            if (addresses[i] == _account) {
+                return addressToNickname[_account];
+            }
+        }
+        revert("User not found");
     }
 
     function nicknameAlreadyExists(string calldata _nickname) external view returns (bool) {
-        for (uint256 i = 0; i < nicknames.length; i++) {
-            if (keccak256(abi.encodePacked(nicknames[i])) == keccak256(abi.encodePacked(_nickname))) {
+        for (uint256 i = 0; i < addresses.length; i++) {
+            if (keccak256(abi.encodePacked(addressToNickname[addresses[i]])) == keccak256(abi.encodePacked(_nickname))) {
                 return true;
             }
         }
@@ -27,7 +32,7 @@ contract UserManager {
         if (bytes(_nickname).length == 0) {
             revert EmptyNicknameNotAllowed();
         }
-        userNicknameIds[_account] = nicknames.length;
-        nicknames.push(_nickname);
+        addressToNickname[_account] = _nickname;
+        addresses.push(_account);
     }
 }
