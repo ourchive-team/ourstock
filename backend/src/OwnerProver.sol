@@ -4,8 +4,17 @@ import "./Marketplace.sol";
 
 error IncorrectImageTitle();
 
+struct ReportElement {
+    uint256 imageId;
+    bool proved;
+    uint256 timestamp;
+    string phrase;
+}
+
 contract OwnerProver {
     Marketplace marketplace;
+    mapping(string => mapping(string => ReportElement)) creatorReportTable;
+    mapping(string => string[]) private creatorPhraseListTable;
 
     constructor(address _marketplace_addr) {
         marketplace = Marketplace(_marketplace_addr);
@@ -29,6 +38,15 @@ contract OwnerProver {
 
         if (!image_found) {
             revert IncorrectImageTitle();
+        }
+
+        // Add the report to creatorReportTable
+        mapping(string => ReportElement) storage reports = creatorReportTable[_creator_name];
+        string[] storage creatorPhraseList = creatorPhraseListTable[_creator_name];
+        if (reports[phrase].timestamp == 0) {
+            // timestamp is 0 if reports[phrase] is empty. antipattern. FIXME
+            reports[phrase] = ReportElement(target_image.id, false, block.timestamp, phrase);
+            creatorPhraseList.push(phrase);
         }
     }
 }
