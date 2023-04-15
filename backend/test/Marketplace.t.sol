@@ -23,33 +23,15 @@ contract MarketplaceTest is Test {
 
     function testUploadImageWithDuplicatedName() public {
         vm.prank(msg.sender);
-        marketplace.uploadImage(
-            1000,
-            "test",
-            "test",
-            "https://example.com",
-            1000
-        );
+        marketplace.uploadImage(1000, "test", "test", "https://example.com", 1000);
         vm.prank(msg.sender);
         vm.expectRevert(DuplicatedImageName.selector);
-        marketplace.uploadImage(
-            1000,
-            "test",
-            "image of duplicate name",
-            "https://example.com",
-            1000
-        );
+        marketplace.uploadImage(1000, "test", "image of duplicate name", "https://example.com", 1000);
     }
 
     function testPurchaseImage() public {
         vm.prank(msg.sender);
-        marketplace.uploadImage(
-            1000,
-            "test",
-            "test",
-            "https://example.com",
-            1000
-        );
+        marketplace.uploadImage(1000, "test", "test", "https://example.com", 1000);
         assertEq(marketplace.latest_id(), 1);
         vm.prank(msg.sender);
         marketplace.purchaseImage{value: 5000}(0);
@@ -58,5 +40,12 @@ contract MarketplaceTest is Test {
     function testFailPurchaseNonExistentImage() public {
         vm.prank(msg.sender);
         marketplace.purchaseImage(1);
+    }
+
+    function testGetImageByCreatorAndName() public {
+        vm.prank(msg.sender);
+        marketplace.uploadImage(1000, "test", "test", "https://example.com", 1000);
+        StockImage memory image = marketplace.getImageByCreatorAndName(msg.sender, "test");
+        assertEq(keccak256(abi.encodePacked(image.description)), keccak256(abi.encodePacked(image.description)));
     }
 }
