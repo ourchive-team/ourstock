@@ -86,9 +86,6 @@ export class EvmOnChainImpl implements OnChainCommunicator {
             const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
 
             const nickname = await this.userManagerContract.getUserNickname(accounts[0]);
-            console.log(accounts[0]);
-            console.log(accounts[0]);
-            console.log(accounts[0]);
             setNickname(nickname);
             console.log("nickname", nickname);
         } catch (err) {
@@ -216,7 +213,7 @@ export class EvmOnChainImpl implements OnChainCommunicator {
             // uint256 price, string calldata name, string calldata description, string calldata uri, uint256 expiry
             await this.marketplaceContract.uploadImage(nft.price, nft.title, nft.description, imageUri, 0, { gasLimit: 3000000 });
         } catch (err) {
-            console.log(err);
+            console.log("uploadImage", err);
             throw (err);
         }
     }
@@ -227,7 +224,7 @@ export class EvmOnChainImpl implements OnChainCommunicator {
             const { id } = await this.marketplaceContract.getImageByCreatorAndName(nft.creator, nft.imageTitle);
             console.log("buyImage: ", id);
 
-            await this.marketplaceContract.purchaseImage(id);
+            await this.marketplaceContract.purchaseImage(id, {gasLimit: 10000000});
         } catch (err) {
             console.log(err);
             throw (err);
@@ -239,7 +236,7 @@ export class EvmOnChainImpl implements OnChainCommunicator {
     public async proveImage(proof: IProveImage): Promise<void> {
         try {
             console.log("prove image ownership: ", proof.imageTitle);
-            this.ownerProverContract.prove_ownership(proof.userNickname, proof.creatorNickname, proof.imageTitle, proof.phrase);
+            this.ownerProverContract.proveOwnership(proof.userNickname, proof.creatorNickname, proof.imageTitle, proof.phrase);
         } catch (err) {
             console.log(err);
             throw (err);
@@ -249,7 +246,7 @@ export class EvmOnChainImpl implements OnChainCommunicator {
     public async reportImage(report: IReportImage): Promise<void> {
         try {
             console.log("reporting image: ", report.imageTitle);
-            this.ownerProverContract.submit_report(report.creatorNickname, report.imageTitle, report.randomPhrase);
+            this.ownerProverContract.submitReport(report.creatorNickname, report.imageTitle, report.randomPhrase);
         } catch (err) {
             console.log(err);
             throw (err);
@@ -259,7 +256,7 @@ export class EvmOnChainImpl implements OnChainCommunicator {
     public async getReportList(nickname: string): Promise<IProveItem[]> {
         try {
             console.log("get report list: ", nickname);
-            const { result } = this.ownerProverContract.get_report_list(nickname);
+            const { result } = this.ownerProverContract.getReportList(nickname);
             console.log("getReportList", result);
         } catch (err) {
             console.log("getReportList", err);
@@ -272,7 +269,7 @@ export class EvmOnChainImpl implements OnChainCommunicator {
     public async getProveList(nickname: string): Promise<IProveItem[]> {
         try {
             console.log("get prove list: ", nickname);
-            const { result } = this.ownerProverContract.get_proof_list(nickname);
+            const { result } = this.ownerProverContract.getProofList(nickname);
             console.log("getProveList", result);
         } catch (err) {
             console.log("getProveList", err);
