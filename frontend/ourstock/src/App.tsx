@@ -11,6 +11,9 @@ import ImageDetailsPage from "./Pages/ImageDetailsPage";
 import PurchasePage from "./Pages/ImageDetailsPage/PurchasePage";
 import ProfilePage from "./Pages/ProfilePage";
 
+import 'react-loading-skeleton/dist/skeleton.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 const App = () => {
   return (
       <BrowserRouter basename={process.env.PUBLIC_URL}>
