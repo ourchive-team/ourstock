@@ -11,6 +11,7 @@ contract UserManagerTest is Test {
     }
 
     function testSetNickname(string memory _nickname) public {
+        vm.assume(bytes(_nickname).length > 0);
         vm.prank(msg.sender);
         userManager.setUserNickname(msg.sender, _nickname);
         assertEq(
@@ -22,5 +23,11 @@ contract UserManagerTest is Test {
         vm.prank(msg.sender);
         vm.expectRevert(Unauthorized.selector);
         userManager.setUserNickname(address(0), _nickname);
+    }
+
+    function testSetEmptyNickname() public {
+        vm.prank(msg.sender);
+        vm.expectRevert(EmptyNicknameNotAllowed.selector);
+        userManager.setUserNickname(msg.sender, "");
     }
 }
