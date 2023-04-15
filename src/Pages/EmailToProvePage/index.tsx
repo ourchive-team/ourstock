@@ -11,15 +11,14 @@ import {useNavigate} from "react-router-dom";
 
 const EmailToProvePage = () => {
     const [nickname, setNickname] = useRecoilState(nicknameState);
-    const pathItems = window.location.pathname.split('/');
     const query = window.location.search.split('?=')
 
     const initReqData:any = {
             userNickname: nickname,
-            creatorNickname: pathItems[2],
-            imageTitle: pathItems[3],
-            phrase: query[1],
-            uri: query[2],
+            creatorNickname: query[0],
+            imageTitle: query[1],
+            phrase: query[2],
+            uri: query[3],
     }
 
     const [reqData, setReqData] = useState<any>(initReqData);
