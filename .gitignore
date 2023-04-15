@@ -102,3 +102,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+./frontend/ourstock/node_modules
+
+./frontend/ourstock/.next
+
+./frontend/ourstock/build
