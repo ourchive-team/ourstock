@@ -82,6 +82,11 @@ contract OwnerProver {
         creatorReport.proved = true;
     }
 
+    // View functions
+    function getReportList(string memory creatorName) external view returns (ReportElement[] memory) {
+        return creatorToReports[creatorName];
+    }
+
     // Util functions
     function getCreatorReportIdx(string calldata creatorName, string calldata phrase) internal view returns (uint256) {
         ReportElement[] memory creatorReports = creatorToReports[creatorName];

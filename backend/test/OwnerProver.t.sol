@@ -73,4 +73,12 @@ contract OwnerProverTest is Test {
         vm.prank(msg.sender);
         ownerProver.proveOwnership(purchaserNickname, creatorNickname, "testName", "testPhrase");
     }
+
+    function testGetReportList() public {
+        vm.prank(creatorAddress);
+        ownerProver.submitReport(creatorNickname, "testName", "testPhrase");
+
+        ReportElement[] memory result = ownerProver.getReportList(creatorNickname);
+        assertEq(result.length, 1);
+    }
 }
