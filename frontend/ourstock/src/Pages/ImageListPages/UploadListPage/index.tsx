@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useRecoilState } from 'recoil';
-import {addressState, uploadedImageList} from "../../states/loginState";
-import {onchain} from "../../func";
-import TopNavigator from "../../Components/NavigatorComponents/TopNavigator";
-import {baseColor, PaddingBox, StyledSpan} from '../../styles';
-import ImageContainer from "../../Components/ImageComponents/ImageContainer";
-import BottomContainer from "../../Components/NavigatorComponents/BottomContainer";
-import {TokenItem} from "../../Components/ImageComponents/ImageSkeletonRenderer";
+import {addressState, uploadedImageList} from "../../../states/loginState";
+import {onchain} from "../../../func";
+import TopNavigator from "../../../Components/NavigatorComponents/TopNavigator";
+import {baseColor, PaddingBox, StyledSpan} from '../../../styles';
+import ImageContainer from "../../../Components/ImageComponents/ImageContainer";
+import BottomContainer from "../../../Components/NavigatorComponents/BottomContainer";
+import {TokenItem} from "../../../Components/ImageComponents/ImageSkeletonRenderer";
 
 interface ItemList {
   id: string;

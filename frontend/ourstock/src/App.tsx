@@ -1,5 +1,8 @@
 import React from 'react';
 
+import 'react-loading-skeleton/dist/skeleton.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 import LoginPage from "./Pages/AuthPage/LoginPage";
@@ -11,8 +14,11 @@ import ImageDetailsPage from "./Pages/ImageDetailsPage";
 import PurchasePage from "./Pages/ImageDetailsPage/PurchasePage";
 import ProfilePage from "./Pages/ProfilePage";
 
-import 'react-loading-skeleton/dist/skeleton.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
+import UploadListPage from "./Pages/ImageListPages/UploadListPage";
+import DownloadList from "./Pages/ImageListPages/DownloadListPage";
+import ReportListPage from "./Pages/ImageListPages/ReportListPage";
+import ProveListPage from "./Pages/ImageListPages/ProveListPage";
 
 const App = () => {
   return (
@@ -23,9 +29,13 @@ const App = () => {
                   <Route path="/nickname" element={<NicknameRegistrationPage />} />
                   <Route path="/main" element={<MainPage />} />
                   <Route path="/upload" element={<UploadPage />} />
-                  <Route path="/profile" element={<ProfilePage />} />
                   <Route path="/images/:creator/:nickname/:title" element={<ImageDetailsPage />} />
                   <Route path="/images/:creator/:nickname/:title/purchase" element={<PurchasePage />} />
+                  <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="/profile/upload-list" element={<UploadListPage />} />
+                  <Route path="/profile/download-list" element={<DownloadList />} />
+                  <Route path="/profile/report-list" element={<ReportListPage />} />
+                  <Route path="/profile/prove-list" element={<ProveListPage />} />
               </Routes>
           </LoginWrapper>
       </BrowserRouter>
