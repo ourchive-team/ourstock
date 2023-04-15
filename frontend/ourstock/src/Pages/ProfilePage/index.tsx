@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import React, {useEffect, useState} from 'react';
+import {useRecoilState} from 'recoil';
 import styled from 'styled-components';
 
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 import profileIcon from '../../images/profile-icon.png';
 import navIcon from '../../icons/prev.svg';
-import { baseColor } from '../../styles';
+import {baseColor} from '../../styles';
 
-import ImageSkeletonRenderer, { TokenItem } from '../../Components/ImageComponents/ImageSkeletonRenderer';
+import ImageSkeletonRenderer, {TokenItem} from '../../Components/ImageComponents/ImageSkeletonRenderer';
 import BottomNavigator from '../../Components/NavigatorComponents/BottomNavigator';
 import BottomContainer from '../../Components/NavigatorComponents/BottomContainer';
-import { addressState, nicknameState } from '../../states/loginState';
-import { onchain } from '../../func';
-import { TokenPurchaseItem } from '../../func/type';
+import {addressState, nicknameState} from '../../states/loginState';
+import {onchain} from '../../func';
+import {TokenPurchaseItem} from '../../func/type';
 
 const ProfilePage = () => {
   const [nickname, setNickname] = useRecoilState(nicknameState);
@@ -161,6 +161,7 @@ const CardBox = styled.div`
     font-weight: 900;
     font-size: 15px;
   }
+  
   span:nth-child(2) {
     font-weight: 400;
     font-size: 12px;

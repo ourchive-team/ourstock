@@ -9,7 +9,7 @@ import {useNavigate} from 'react-router-dom';
 import BottomContainer from '../../../Components/NavigatorComponents/BottomContainer';
 
 import {addressState, nicknameState, publicKeyState} from "../../../states/loginState";
-import { baseColor, LargeButton } from '../../../styles';
+import {baseColor, LargeButton} from '../../../styles';
 import {onchain} from "../../../func";
 
 const LoginPage = () => {

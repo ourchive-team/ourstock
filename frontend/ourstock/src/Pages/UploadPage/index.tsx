@@ -1,18 +1,17 @@
-
-import React, { useRef, useState } from 'react';
+import React, {useRef, useState} from 'react';
 import styled from 'styled-components';
-import Link, { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 
 import plusIcon from '../../icons/plus.svg';
 
-import {addressState, nicknameState, uploadedImageList} from '../../states/loginState';
-import { baseColor, LargeButton, PaddingBox, StyledInput } from '../../styles';
-import { onchain } from '../../func';
+import {addressState, nicknameState} from '../../states/loginState';
+import {baseColor, LargeButton, PaddingBox, StyledInput} from '../../styles';
+import {onchain} from '../../func';
 import BottomContainer from '../../Components/NavigatorComponents/BottomContainer';
 import TopNavigator from '../../Components/NavigatorComponents/TopNavigator';
 import CenteredModal from '../../Components/CenteredModal';
-import { useRecoilState } from 'recoil';
+import {useRecoilState} from 'recoil';
 
 
 interface IRenderTextArea {
@@ -184,6 +183,7 @@ const UploadPage = () => {
                       nickname: nickname as unknown as string,
                   })
                   .then(() => {
+                      console.log('asd')
                       // const [address, setAddress] = useRecoilState(addressState);
                       // const [uploadedImage, setUploadedImage] = useRecoilState(uploadedImageList);
 

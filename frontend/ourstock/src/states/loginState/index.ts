@@ -37,7 +37,6 @@ export const addressState = atom<TAddressState>({
 });
 
 type TUploadedImageList = TokenItem[];
-
 export const uploadedImageList = atom<TUploadedImageList>({
     key: LoginStateEnum.UploadedImageList,
     default: [],
