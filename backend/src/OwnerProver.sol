@@ -16,36 +16,34 @@ contract OwnerProver {
     mapping(string => mapping(string => ReportElement)) creatorReportTable;
     mapping(string => string[]) private creatorPhraseListTable;
 
-    constructor(address _marketplace_addr) {
-        marketplace = Marketplace(_marketplace_addr);
+    constructor(address marketplaceAddr) {
+        marketplace = Marketplace(marketplaceAddr);
     }
 
-    function submitReport(string calldata _creator_name, string calldata _image_title, string calldata phrase)
-        external
-    {
-        StockImage[] memory uploaded_images = marketplace.getUploadedImages(msg.sender);
-        StockImage memory target_image;
-        bool image_found = false;
+    function submitReport(string calldata creatorName, string calldata imageTitle, string calldata phrase) external {
+        StockImage[] memory uploadedImages = marketplace.getUploadedImages(msg.sender);
+        StockImage memory targetImage;
+        bool found = false;
 
         // Find the target image
-        for (uint256 i = 0; i < uploaded_images.length; i++) {
-            if (keccak256(abi.encodePacked(_image_title)) == keccak256(abi.encodePacked(uploaded_images[i].name))) {
-                target_image = uploaded_images[i];
-                image_found = true;
+        for (uint256 i = 0; i < uploadedImages.length; i++) {
+            if (keccak256(abi.encodePacked(imageTitle)) == keccak256(abi.encodePacked(uploadedImages[i].name))) {
+                targetImage = uploadedImages[i];
+                found = true;
                 break;
             }
         }
 
-        if (!image_found) {
+        if (!found) {
             revert IncorrectImageTitle();
         }
 
         // Add the report to creatorReportTable
-        mapping(string => ReportElement) storage reports = creatorReportTable[_creator_name];
-        string[] storage creatorPhraseList = creatorPhraseListTable[_creator_name];
+        mapping(string => ReportElement) storage reports = creatorReportTable[creatorName];
+        string[] storage creatorPhraseList = creatorPhraseListTable[creatorName];
         if (reports[phrase].timestamp == 0) {
             // timestamp is 0 if reports[phrase] is empty. antipattern. FIXME
-            reports[phrase] = ReportElement(target_image.id, false, block.timestamp, phrase);
+            reports[phrase] = ReportElement(targetImage.id, false, block.timestamp, phrase);
             creatorPhraseList.push(phrase);
         }
     }
