@@ -16,6 +16,7 @@ import {
     IProveItem,
     IProofResponse,
     OnChainCommunicator,
+    TProved,
 } from './type';
 import { UserManagerABI, MarketplaceABI, OwnerProverABI } from './evmABI';
 import { TokenItem } from '../Components/ImageComponents/ImageSkeletonRenderer';
@@ -87,7 +88,6 @@ export class EvmOnChainImpl implements OnChainCommunicator {
 
             const nickname = await this.userManagerContract.getUserNickname(accounts[0]);
             setNickname(nickname);
-            console.log("nickname", nickname);
         } catch (err) {
             console.log(this.checkUserExists.name, err);
             return false;
@@ -111,7 +111,6 @@ export class EvmOnChainImpl implements OnChainCommunicator {
             console.log(this.getUserNickname.name, err);
             throw (err);
         }
-        console.log("nickname:", nickname);
         return nickname;
     }
 
@@ -229,8 +228,8 @@ export class EvmOnChainImpl implements OnChainCommunicator {
 
     public async proveImage(proof: IProveImage): Promise<void> {
         try {
-            console.log("prove image ownership: ", proof.imageTitle);
-            await this.ownerProverContract.proveOwnership(proof.userNickname, proof.creatorNickname, proof.imageTitle, proof.phrase);
+            console.log("prove image ownership: ", proof.imageTitle, proof.userNickname, proof.creatorNickname);
+            await this.ownerProverContract.proveOwnership(proof.userNickname, proof.creatorNickname, proof.imageTitle, proof.phrase, {gasLimit: 10000000});
         } catch (err) {
             console.log(err);
             throw (err);
@@ -256,7 +255,8 @@ export class EvmOnChainImpl implements OnChainCommunicator {
             await Promise.all(
                 result.map(async (el: any) => {
                     const { id, name, description, uri, price, creator, expiry } = await this.marketplaceContract.stock_images(el.imageId);
-                    const proof = {  proved: el.proved, title: name, creator, requestedDate: new Date(), provedDate: new Date(), keyPhrase: el.phrase,uri: uri};
+                    const proved: TProved = (el.proved) ? 1 : 0;
+                    const proof = {  proved: proved, title: name, creator, requestedDate: new Date(), provedDate: new Date(), keyPhrase: el.phrase,uri: uri};
                     proofs.push(proof);
                 })
             )
@@ -273,12 +273,14 @@ export class EvmOnChainImpl implements OnChainCommunicator {
         const proofs: IProveItem[] = [];
         try {
             console.log("get prove list: ", nickname, nickname.length);
-            const { result } = await this.ownerProverContract.getProofList(nickname);
+            const result = await this.ownerProverContract.getProofList(nickname);
 
             await Promise.all(
                 result.map(async (el: any) => {
                     const { id, name, description, uri, price, creator, expiry } = await this.marketplaceContract.stock_images(el.imageId);
-                    const proof = {  proved: el.proved, title: name, creator, requestedDate: new Date(), provedDate: new Date(), keyPhrase: el.phrase,uri: uri};
+                    const creatorNickname = await this.getUserNickname(creator);
+                    const proved: TProved = 1;
+                    const proof = {  proved: proved, title: name, creator: creatorNickname, requestedDate: new Date(), provedDate: new Date(), keyPhrase: el.phrase, uri};
                     proofs.push(proof);
                 })
             )
@@ -287,6 +289,7 @@ export class EvmOnChainImpl implements OnChainCommunicator {
             throw (err);
         }
 
-        return [];
+        console.log(proofs);
+        return proofs;
     }
 }

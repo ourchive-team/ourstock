@@ -109,7 +109,7 @@ const EmailToProvePage = () => {
                             onchain
                                 .proveImage({
                                     userNickname: nickname,
-                                    creatorNickname: reqData.userNickname,
+                                    creatorNickname: reqData.creatorNickname,
                                     imageTitle: reqData.imageTitle,
                                     phrase: reqData.phrase,
                                 })

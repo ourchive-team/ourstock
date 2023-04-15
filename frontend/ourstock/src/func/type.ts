@@ -65,7 +65,7 @@ export interface IReportResponse {
   }[];
 }
 
-type TProved = 0 | 1 | 2 | 3; // not proved = 0, proved = 1, cannot prove = 2
+export type TProved = 0 | 1 | 2 | 3; // not proved = 0, proved = 1, cannot prove = 2
 
 export interface IProveItem {
   proved: TProved;

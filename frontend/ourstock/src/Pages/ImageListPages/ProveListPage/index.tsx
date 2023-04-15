@@ -189,7 +189,9 @@ const ProveListPage = () => {
               <div style={{ display: 'flex', marginTop: '-4px' }}>
                 <div>
                   <ImageSkeletonRenderer
-                    itemList={[]}
+                    itemList={[
+                      { creator: el.creator, creatorNickname: '', collection: '', name: el.title, uri: el.uri, price: 0, expiry: 0, description: '' },
+                    ]}
                     routeUrl="/Images"
                     style={{ wrapper: { paddingLeft: '0px' } }}
                     skeletonWidth={60}
