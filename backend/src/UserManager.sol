@@ -1,5 +1,7 @@
 pragma solidity ^0.8.17;
 
+error Unauthorized();
+
 contract UserManager {
     mapping(address => string) userNicknames;
 
@@ -8,6 +10,9 @@ contract UserManager {
     }
 
     function setUserNickname(address _id, string memory _nickname) public {
+        if (msg.sender != _id) {
+            revert Unauthorized();
+        }
         userNicknames[_id] = _nickname;
     }
 }

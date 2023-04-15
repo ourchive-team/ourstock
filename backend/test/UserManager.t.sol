@@ -11,9 +11,16 @@ contract UserManagerTest is Test {
     }
 
     function testSetNickname(string memory _nickname) public {
+        vm.prank(msg.sender);
         userManager.setUserNickname(msg.sender, _nickname);
         assertEq(
             keccak256(abi.encodePacked(userManager.getUserNickname(msg.sender))), keccak256(abi.encodePacked(_nickname))
         );
+    }
+
+    function testSetOtherUserNickname(string memory _nickname) public {
+        vm.prank(msg.sender);
+        vm.expectRevert(Unauthorized.selector);
+        userManager.setUserNickname(address(0), _nickname);
     }
 }
