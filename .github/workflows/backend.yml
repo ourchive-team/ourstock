@@ -1,6 +1,10 @@
-name: backend CI
+name: Backend CI
 
-on: workflow_dispatch
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
 
 env:
   FOUNDRY_PROFILE: ci
