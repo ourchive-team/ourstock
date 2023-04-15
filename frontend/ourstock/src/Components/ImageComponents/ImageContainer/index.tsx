@@ -18,7 +18,7 @@ const ImageContainer = ({ uri, alt, favorite, style }: IImageContainer) => {
             width: '100%',
             height: '100%',
             position: 'absolute',
-            borderRadius:'16px',
+            borderRadius:'8px',
             backgroundImage: 'linear-gradient(to bottom, rgba(75, 75, 75, 1) 0%, rgba(0, 0, 0, 0) 30%)',
           }}
         >
@@ -34,7 +34,7 @@ const ImageContainer = ({ uri, alt, favorite, style }: IImageContainer) => {
           />
         </div>
       )}
-      <img src={uri} alt={alt} style={{...style, borderRadius: '16px'}} />
+      <img src={uri} alt={alt} style={{...style, borderRadius: '8px'}} />
     </ImageContainerBox>
   );
 };
