@@ -28,7 +28,7 @@ contract OwnerProver {
 
         // Find the target image
         for (uint256 i = 0; i < uploadedImages.length; i++) {
-            if (keccak256(abi.encodePacked(imageTitle)) == keccak256(abi.encodePacked(uploadedImages[i].name))) {
+            if (areSameStrings(imageTitle, uploadedImages[i].name)) {
                 targetImage = uploadedImages[i];
                 found = true;
                 break;
@@ -66,8 +66,13 @@ contract OwnerProver {
 
         // Check the image title
         (, string memory name,,,,,) = marketplace.stock_images(creatorReport.imageId);
-        if (keccak256(abi.encodePacked(name)) != keccak256(abi.encodePacked(imageTitle))) {
+        if (areSameStrings(name, imageTitle)) {
             revert IncorrectImageTitle();
         }
+    }
+
+    // Util functions
+    function areSameStrings(string memory s1, string memory s2) internal pure returns (bool) {
+        return keccak256(abi.encodePacked(s1)) == keccak256(abi.encodePacked(s2));
     }
 }
