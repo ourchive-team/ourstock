@@ -82,6 +82,10 @@ contract OwnerProver {
         if (!checkUserPurchasedImage(msg.sender, creatorReport.imageId)) {
             revert UserNotImageOwner();
         }
+
+        ProofElement[] storage userProofs = userNicknameToProofs[userName];
+        userProofs.push(ProofElement(creatorReport.imageId, phrase, block.timestamp));
+        creatorReport.proved = true;
     }
 
     function checkUserPurchasedImage(address user, uint256 imageId) internal view returns (bool) {
