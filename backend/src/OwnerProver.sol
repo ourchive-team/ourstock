@@ -13,10 +13,17 @@ struct ReportElement {
     string phrase;
 }
 
+struct ProofElement {
+    uint256 imageId;
+    string phrase;
+    uint256 timestamp;
+}
+
 contract OwnerProver {
     Marketplace marketplace;
     mapping(string => mapping(string => ReportElement)) creatorReportTable;
     mapping(string => string[]) private creatorPhraseListTable;
+    mapping(string => ProofElement[]) userNicknameToProofs;
 
     constructor(address marketplaceAddr) {
         marketplace = Marketplace(marketplaceAddr);
