@@ -29,6 +29,18 @@ setup-yarn:
 local-node: setup-yarn 
 	yarn hardhat node 
 
-deploy:
-	# polygon gas estimation isn't accurate, so we need to set a high gas limit
+# polygon gas estimation isn't accurate, so we need to set a high gas limit
+deploy-mumbai:
 	forge script script/Deploy.s.sol --rpc-url ${RPC_URL} --broadcast --gas-limit 12345678
+
+deploy-scroll:
+	forge script script/Deploy.s.sol --rpc-url ${RPC_URL} --broadcast --legacy
+
+deploy-zk-polygon:
+	forge script script/Deploy.s.sol --rpc-url ${RPC_URL} --broadcast
+
+deploy-taiko:
+	forge script script/Deploy.s.sol --rpc-url ${RPC_URL} --broadcast
+
+deploy-celo:
+	forge script script/Deploy.s.sol --rpc-url ${RPC_URL} --broadcast

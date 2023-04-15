@@ -14,11 +14,23 @@ A decentralized marketplace for stock Images, solving for high fees, copyright m
 
 ### Polygon zkEVM testnet
 
-- UserManager
-- Marketplace
-- OwnerProver
+- [UserManager]()
+- [Marketplace]()
+- [OwnerProver]()
 
 ### Scroll testnet
+
+- [UserManager](https://blockscout.scroll.io/address/0xb58862ab4a1849642a955ED80c63ee90EA1Ef41e)
+- [Marketplace](https://blockscout.scroll.io/address/0x5fFe856b40dC0722F7B84719650DB2FbAB6D3747)
+- [OwnerProver](https://blockscout.scroll.io/address/0x3cC706Be2885b89D2c730Aba119d9f7215A9413F)
+
+### Celo Alfajores
+
+- [UserManager](https://explorer.celo.org/alfajores/address/0xb58862ab4a1849642a955ED80c63ee90EA1Ef41e)
+- [Marketplace](https://explorer.celo.org/alfajores/address/0x5fFe856b40dC0722F7B84719650DB2FbAB6D3747)
+- [OwnerProver](https://explorer.celo.org/alfajores/address/0x3cC706Be2885b89D2c730Aba119d9f7215A9413F)
+
+### Taiko Alpha2 testnet
 
 - UserManager
 - Marketplace
