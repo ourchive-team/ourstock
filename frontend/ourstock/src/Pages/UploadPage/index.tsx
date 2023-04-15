@@ -1,17 +1,19 @@
-import { useRecoilState } from 'recoil';
 
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import Link, { useNavigate } from 'react-router-dom';
 
+
 import plusIcon from '../../icons/plus.svg';
 
-import { nicknameState } from '../../states/loginState';
+import {addressState, nicknameState, uploadedImageList} from '../../states/loginState';
 import { baseColor, LargeButton, PaddingBox, StyledInput } from '../../styles';
 import { onchain } from '../../func';
 import BottomContainer from '../../Components/NavigatorComponents/BottomContainer';
 import TopNavigator from '../../Components/NavigatorComponents/TopNavigator';
 import CenteredModal from '../../Components/CenteredModal';
+import { useRecoilState } from 'recoil';
+
 
 interface IRenderTextArea {
   title: string;
@@ -69,7 +71,9 @@ const UploadPage = () => {
   };
 
   const enabled = inputValues.title && inputValues.desc && Number(inputValues.price) > 0;
-  return (
+    const [address, setAddress] = useRecoilState(addressState);
+
+    return (
     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
       <CenteredModal
         show={modalOpen}
@@ -168,17 +172,27 @@ const UploadPage = () => {
           type="submit"
           style={{ backgroundColor: enabled ? 'black' : '#8E8E8E', textTransform: 'capitalize', marginTop: 'auto' }}
           onClick={async () => {
-            setModalOpen(true);
-            console.log('uploading broom! broom!');
-            //and upload image to server
-            await onchain.uploadImage({
-              title: inputValues.title,
-              description: inputValues.desc,
-              price: parseInt(inputValues.price, 10),
-              // eslint-disable-next-line
-              img: imageFile?.file!,
-              nickname: (nickname as unknown) as string,
-            });
+              console.log('uploading broom! broom!');
+              //and upload image to server
+              await onchain
+                  .uploadImage({
+                      title: inputValues.title,
+                      description: inputValues.desc,
+                      price: parseInt(inputValues.price, 10),
+                      // eslint-disable-next-line
+                      img: imageFile?.file!,
+                      nickname: nickname as unknown as string,
+                  })
+                  .then(() => {
+                      // const [address, setAddress] = useRecoilState(addressState);
+                      // const [uploadedImage, setUploadedImage] = useRecoilState(uploadedImageList);
+
+                      const addressString = address;
+                      onchain.getUploadedImageList(addressString).then(data => {
+                          // setUploadedImage(data);
+                          setModalOpen(true);
+                      });
+                  });
           }}
         >
           Upload Image

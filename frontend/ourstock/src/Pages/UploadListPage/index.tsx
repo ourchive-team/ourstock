@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useRecoilState } from 'recoil';
-import {addressState} from "../../states/loginState";
+import {addressState, uploadedImageList} from "../../states/loginState";
 import {onchain} from "../../func";
 import TopNavigator from "../../Components/NavigatorComponents/TopNavigator";
 import {baseColor, PaddingBox, StyledSpan} from '../../styles';
@@ -19,35 +19,15 @@ interface ItemList {
 }
 
 const UploadListPage = () => {
-  const [address, setAddress] = useRecoilState(addressState);
+    const [address, setAddress] = useRecoilState(addressState);
+    const [uploadedImage, setUploadedImage] = useRecoilState(uploadedImageList);
 
-
-
-    const [uploadedImage, setUploadedList] = useState<TokenItem[]>([
-        {
-            creator: '0x00000000',
-            creatorNickname: 'test',
-            name: 'test',
-            collection: 'test',
-            price: 0,
-            uri: 'test',
-        },
-        {
-            creator: '0x00000000',
-            creatorNickname: 'test',
-            name: 'test',
-            collection: 'test',
-            price: 0,
-            uri: 'test',
-        },
-    ]);
-
-  const addressString = address;
+    const addressString = address;
 
   useEffect(() => {
-    // onchain.getUploadedImageList(addressString).then(data => {
-    //   setUploadedImage(data);
-    // });
+    onchain.getUploadedImageList(addressString).then(data => {
+      setUploadedImage(data);
+    });
   }, []);
 
   const nav = useNavigate();

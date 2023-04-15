@@ -3,4 +3,5 @@ export enum LoginStateEnum {
     ADDRESS = 'ADDRESS',
     PUBLIC_KEY = 'PUBLIC_KEY',
     NICKNAME = 'NICKNAME',
+    UploadedImageList = 'UploadedImageList',
 }
