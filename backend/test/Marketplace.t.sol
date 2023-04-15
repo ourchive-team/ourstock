@@ -40,4 +40,23 @@ contract MarketplaceTest is Test {
             1000
         );
     }
+
+    function testPurchaseImage() public {
+        vm.prank(msg.sender);
+        marketplace.uploadImage(
+            1000,
+            "test",
+            "test",
+            "https://example.com",
+            1000
+        );
+        assertEq(marketplace.latest_id(), 1);
+        vm.prank(msg.sender);
+        marketplace.purchaseImage{value: 5000}(0);
+    }
+
+    function testFailPurchaseNonExistentImage() public {
+        vm.prank(msg.sender);
+        marketplace.purchaseImage(1);
+    }
 }
