@@ -26,6 +26,9 @@ contract OwnerProverTest is Test {
         marketplace.uploadImage(1000, "testName", "testDesc", "https://example.com", 1000);
         vm.prank(creatorAddress);
         marketplace.uploadImage(1000, "testName2", "testDesc2", "https://example.com", 1000);
+
+        vm.prank(msg.sender);
+        marketplace.purchaseImage{value: 5000}(0);
     }
 
     function testSubmitReportForNonexistentImage() public {
@@ -61,5 +64,13 @@ contract OwnerProverTest is Test {
         vm.prank(msg.sender);
         vm.expectRevert(UserNotImageOwner.selector);
         ownerProver.proveOwnership(purchaserNickname, creatorNickname, "testName2", "testPhrase");
+    }
+
+    function testProveOwnership() public {
+        vm.prank(creatorAddress);
+        ownerProver.submitReport(creatorNickname, "testName", "testPhrase");
+
+        vm.prank(msg.sender);
+        ownerProver.proveOwnership(purchaserNickname, creatorNickname, "testName", "testPhrase");
     }
 }
