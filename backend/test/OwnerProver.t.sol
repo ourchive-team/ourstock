@@ -81,4 +81,12 @@ contract OwnerProverTest is Test {
         ReportElement[] memory result = ownerProver.getReportList(creatorNickname);
         assertEq(result.length, 1);
     }
+
+    function testGetProofList() public {
+        testProveOwnership();
+
+        vm.prank(msg.sender);
+        ProofElement[] memory result = ownerProver.getProofList(purchaserNickname);
+        assertEq(result.length, 1);
+    }
 }

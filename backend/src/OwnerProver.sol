@@ -87,7 +87,12 @@ contract OwnerProver {
         return creatorToReports[creatorName];
     }
 
+    function getProofList(string memory userName) external view returns (ProofElement[] memory) {
+        return userNicknameToProofs[userName];
+    }
+
     // Util functions
+
     function getCreatorReportIdx(string calldata creatorName, string calldata phrase) internal view returns (uint256) {
         ReportElement[] memory creatorReports = creatorToReports[creatorName];
         uint256 result = creatorReports.length;
