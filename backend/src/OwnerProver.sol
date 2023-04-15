@@ -22,7 +22,7 @@ struct ProofElement {
 contract OwnerProver {
     Marketplace marketplace;
     mapping(string => ReportElement[]) creatorToReports;
-    mapping(string => ProofElement[]) userNicknameToProofs;
+    mapping(string => ProofElement[]) userToProofs;
 
     constructor(address marketplaceAddr) {
         marketplace = Marketplace(marketplaceAddr);
@@ -77,7 +77,7 @@ contract OwnerProver {
             revert UserNotImageOwner();
         }
 
-        ProofElement[] storage userProofs = userNicknameToProofs[userName];
+        ProofElement[] storage userProofs = userToProofs[userName];
         userProofs.push(ProofElement(creatorReport.imageId, phrase, block.timestamp));
         creatorReport.proved = true;
     }
@@ -88,7 +88,7 @@ contract OwnerProver {
     }
 
     function getProofList(string memory userName) external view returns (ProofElement[] memory) {
-        return userNicknameToProofs[userName];
+        return userToProofs[userName];
     }
 
     // Util functions
