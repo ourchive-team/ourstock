@@ -13,6 +13,7 @@ import SelectCategoryBar from "../../Components/SelectCategoryBar";
 
 import {baseColor, PaddingBox} from '../../styles';
 import ImageGridWrapper from "../../Components/ImageComponents/ImageGridWrapper";
+import {onchain} from "../../func";
 
 
 const MainPage = () => {
@@ -20,8 +21,11 @@ const MainPage = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        //get all image func
-    }, []);
+        onchain.getAllImageInfoList().then(data => {
+            setTokenList(data);
+            setIsLoading(true);
+        });
+        }, []);
 
     const [nickname, setNickname] = useRecoilState(nicknameState);
 
