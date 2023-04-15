@@ -20,11 +20,21 @@ contract OwnerProverTest is Test {
 
         vm.prank(creatorAddress);
         userManager.setUserNickname(creatorAddress, creatorNickname);
+
+        vm.prank(creatorAddress);
+        marketplace.uploadImage(1000, "testName", "testDesc", "https://example.com", 1000);
+        vm.prank(creatorAddress);
+        marketplace.uploadImage(1000, "testName2", "testDesc2", "https://example.com", 1000);
     }
 
     function testSubmitReportForNonexistentImage() public {
         vm.prank(creatorAddress);
         vm.expectRevert(IncorrectImageTitle.selector);
         ownerProver.submitReport(creatorNickname, "incorrectImageTitle", "testPhrase");
+    }
+
+    function testSubmitReport() public {
+        vm.prank(creatorAddress);
+        ownerProver.submitReport(creatorNickname, "testName", "testPhrase");
     }
 }
