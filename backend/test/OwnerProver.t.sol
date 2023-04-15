@@ -12,6 +12,7 @@ contract OwnerProverTest is Test {
 
     address public creatorAddress = address(0);
     string public creatorNickname = "I'm a Creator";
+    string public purchaserNickname = "I'm a Purchaser";
 
     function setUp() public {
         userManager = new UserManager();
@@ -36,5 +37,14 @@ contract OwnerProverTest is Test {
     function testSubmitReport() public {
         vm.prank(creatorAddress);
         ownerProver.submitReport(creatorNickname, "testName", "testPhrase");
+    }
+
+    function testProveOwnershipWithIncorrectPhrase() public {
+        vm.prank(creatorAddress);
+        ownerProver.submitReport(creatorNickname, "testName", "testPhrase");
+
+        vm.prank(msg.sender);
+        vm.expectRevert(IncorrectPhrase.selector);
+        ownerProver.proveOwnership(purchaserNickname, creatorNickname, "testName", "incorrectPhrase");
     }
 }

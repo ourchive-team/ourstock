@@ -3,6 +3,7 @@ pragma solidity ^0.8.17;
 import "./Marketplace.sol";
 
 error IncorrectImageTitle();
+error IncorrectPhrase();
 
 struct ReportElement {
     uint256 imageId;
@@ -45,6 +46,22 @@ contract OwnerProver {
             // timestamp is 0 if reports[phrase] is empty. antipattern. FIXME
             reports[phrase] = ReportElement(targetImage.id, false, block.timestamp, phrase);
             creatorPhraseList.push(phrase);
+        }
+    }
+
+    function proveOwnership(
+        string calldata userName,
+        string calldata creatorName,
+        string calldata imageTitle,
+        string calldata phrase
+    ) external {
+        // Get the creator's report list
+        mapping(string => ReportElement) storage creatorReportMap = creatorReportTable[creatorName];
+
+        // Check the phrase, FIXME
+        ReportElement storage creatorReport = creatorReportMap[phrase];
+        if (creatorReport.timestamp == 0) {
+            revert IncorrectPhrase();
         }
     }
 }
