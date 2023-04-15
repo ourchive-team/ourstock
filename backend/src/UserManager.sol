@@ -11,7 +11,7 @@ contract UserManager {
         return nicknames[userNicknameIds[_account]];
     }
 
-    function nicknameAlreadyExists(string memory _nickname) external view returns (bool) {
+    function nicknameAlreadyExists(string calldata _nickname) external view returns (bool) {
         for (uint256 i = 0; i < nicknames.length; i++) {
             if (keccak256(abi.encodePacked(nicknames[i])) == keccak256(abi.encodePacked(_nickname))) {
                 return true;
@@ -20,7 +20,7 @@ contract UserManager {
         return false;
     }
 
-    function setUserNickname(address _account, string memory _nickname) public {
+    function setUserNickname(address _account, string calldata _nickname) public {
         if (msg.sender != _account) {
             revert Unauthorized();
         }
