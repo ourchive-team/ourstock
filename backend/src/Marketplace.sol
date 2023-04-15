@@ -102,4 +102,16 @@ contract Marketplace is ERC1155 {
 
         return result;
     }
+
+    function getPurchasedImages(address _owner) external view returns (StockImage[] memory) {
+        uint256[] memory image_ids = owner_to_stock_image_ids[_owner];
+        StockImage[] memory result = new StockImage[](image_ids.length);
+        uint256 result_idx = 0;
+
+        for (uint256 i = 0; i < image_ids.length; i++) {
+            result[result_idx++] = stock_images[image_ids[i]];
+        }
+
+        return result;
+    }
 }
