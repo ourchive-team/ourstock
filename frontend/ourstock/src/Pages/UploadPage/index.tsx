@@ -184,9 +184,6 @@ const UploadPage = () => {
                   })
                   .then(() => {
                       console.log('asd')
-                      // const [address, setAddress] = useRecoilState(addressState);
-                      // const [uploadedImage, setUploadedImage] = useRecoilState(uploadedImageList);
-
                       const addressString = address;
                       onchain.getUploadedImageList(addressString).then(data => {
                           // setUploadedImage(data);

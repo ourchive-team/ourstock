@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {useRecoilState} from 'recoil';
 import {baseColor, LargeButton, PaddingBox, StyledInput, StyledSpan} from '../../../styles';
@@ -39,30 +39,18 @@ const ProveListPage = () => {
     phrase: '',
   };
 
-  const dummy: IProveItem[] = [
-    {
-      proved: 0,
-      title: 'set',
-      creator: 'wer',
-      requestedDate: null, //Timestamp?
-      provedDate: null, //Timestamp?
-      keyPhrase: 'wef w',
-      uri: 'fwef',
-    },
-  ];
-
-  const [proveList, setProveList] = useState<IProveItem[]>(dummy);
+  const [proveList, setProveList] = useState<IProveItem[]>([]);
 
   const [nickname] = useRecoilState(nicknameState);
   const [reqData, setReqData] = useState<IProveImage>(initReqData);
   const [modal, setModal] = useState(false);
   const [completeModal, setCompleteModal] = useState(false);
 
-  // useEffect(() => {
-  //   onchain.getProveList(nickname).then(data => {
-  //     setProveList(data);
-  //   });
-  // }, []);
+  useEffect(() => {
+    onchain.getProveList(nickname).then(data => {
+      setProveList(data);
+    });
+  }, []);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>

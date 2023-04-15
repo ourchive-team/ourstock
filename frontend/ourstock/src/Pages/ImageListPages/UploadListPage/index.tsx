@@ -26,6 +26,7 @@ const UploadListPage = () => {
   useEffect(() => {
     onchain.getUploadedImageList(addressString).then(data => {
       setUploadedImage(data);
+      console.log(data)
     });
   }, []);
 

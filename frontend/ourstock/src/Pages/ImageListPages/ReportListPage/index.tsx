@@ -12,6 +12,7 @@ import {onchain} from '../../../func';
 import {dateToString} from '../../../func/util';
 import {IProveItem} from '../../../func/type';
 import {nicknameState} from '../../../states/loginState';
+import {sendMail} from "../../../func/sendMail";
 
 interface IProveStatus {
   proveStatus: 0 | 1 | 2 | 3;
@@ -96,17 +97,22 @@ const ReportListPage = () => {
             onClick={() => {
               const randomPhrase = (Math.random() + 1).toString(36).substring(8);
 
-              onchain
-                .reportImage({
-                  creatorNickname: reportData.nickname,
-                  imageTitle: reportData.title,
-                  randomPhrase,
-                })
-                .then(data => {
-                  setModal(false);
-                  setReportData({ ...reportData, phrase: randomPhrase });
-                  setCompleteModal(true);
-                });
+              // onchain
+              //   .reportImage({
+              //     creatorNickname: reportData.nickname,
+              //     imageTitle: reportData.title,
+              //     randomPhrase,
+              //   })
+              //   .then(data => {
+              //       const params = {toEmail: reportData.email, imageTitle: reportData.title, creatorNickname: reportData.nickname,
+              //           phrase: randomPhrase, imageUrl: uri ,proveUrl: `https://github.io/ourstock/profile/prove-list` ,thens:() => {
+              //               console.log('then');
+              //               setModal(false);
+              //               setReportData({ ...reportData, phrase: randomPhrase });
+              //               setCompleteModal(true);
+              //           }, errs: () => console.log('failed to send mail')}
+              //       sendMail({...params});
+              //   });
             }}
           >
             Request for Proof

@@ -31,7 +31,10 @@ import BottomContainer from '../../Components/NavigatorComponents/BottomContaine
 import CreatorInfo from '../../Components/CreatorInfo';
 import {onchain} from '../../func';
 import {ImageInfo} from '../../func/type';
-import {baseColor, ImageContainer, LargeButton, PaddingBox} from '../../styles';
+import {baseColor, ImageContainer, LargeButton, PaddingBox, StyledInput} from '../../styles';
+import TopNavigator from "../../Components/NavigatorComponents/TopNavigator";
+import CenteredModal from "../../Components/CenteredModal";
+import {sendMail} from "../../func/sendMail";
 
 const ImageDetailsPage = () => {
   const nav = useNavigate();
@@ -46,6 +49,19 @@ const ImageDetailsPage = () => {
   const [otherWorks, setOtherWorks] = useState<TokenItem[]>([]);
   const [similarWorks, setSimilarWorks] = useState<TokenItem[]>([]);
 
+
+  const initReportData = {
+    nickname: nickname,
+    title: imageTitle,
+    email: '',
+    phrase: '',
+  };
+
+  const [modal, setModal] = useState(false);
+  const [completeModal, setCompleteModal] = useState(false);
+  const [reportData, setReportData] = useState<{ nickname: string; title: string; email: string; phrase?: string }>(
+      initReportData,
+  );
   useEffect(() => {
     onchain.getImageInfo(creatorAddress, nickname, imageTitle).then(info => {
       setImageInfo(info);
@@ -173,7 +189,106 @@ const ImageDetailsPage = () => {
         overflowX: 'hidden',
       }}
     >
-      <PaddingBox style={{ paddingTop: '48px' }}>
+      <CenteredModal
+          show={modal}
+          onHide={() => setModal(false)}
+          body={
+            <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
+              <PaddingBox>
+                <span style={{ fontSize: '16px', fontWeight: 700, marginBottom: '8px' }}>Creator Nickname</span>
+                <StyledInput
+                    name="nickname"
+                    value={reportData.nickname}
+                    placeholder="Put Creator Nickname"
+                    onChange={e => setReportData({ ...reportData, [e.target?.name]: e.target.value })}
+                />
+              </PaddingBox>
+              <PaddingBox>
+                <span style={{ fontSize: '16px', fontWeight: 700, marginBottom: '8px' }}>Image Title</span>
+                <StyledInput
+                    name="title"
+                    value={reportData.title}
+                    placeholder="Put Image Title"
+                    onChange={e => setReportData({ ...reportData, [e.target?.name]: e.target.value })}
+                />
+              </PaddingBox>
+              <PaddingBox>
+                <span style={{ fontSize: '16px', fontWeight: 700, marginBottom: '8px' }}>Email to Request</span>
+                <StyledInput
+                    name="email"
+                    placeholder="Put Email Address"
+                    value={reportData.email}
+                    onChange={e => setReportData({ ...reportData, [e.target?.name]: e.target.value })}
+                />
+              </PaddingBox>
+            </div>
+          }
+          footer={
+            <LargeButton
+                style={{ margin: '0px 16px 16px' }}
+                disabled={!reportData.nickname || !reportData.email || !reportData.title}
+                onClick={() => {
+                  const randomPhrase = (Math.random() + 1).toString(36).substring(8);
+
+                  console.log('report data ', reportData)
+                  onchain
+                      .reportImage({
+                        creatorNickname: reportData.nickname,
+                        imageTitle: reportData.title,
+                        randomPhrase,
+                      })
+                      .then(data => {
+                        const params = {toEmail: reportData.email, imageTitle: reportData.title, creatorNickname: reportData.nickname,
+                          phrase: randomPhrase, imageUrl: imageInfo?.imgUrl ,proveUrl: `https://github.io/ourstock/profile/prove-list` ,thens:() => {
+                          console.log('then');
+                            setModal(false);
+                            setReportData({ ...reportData, phrase: randomPhrase });
+                            setCompleteModal(true);
+                          }, errs: () => console.log('failed to send mail')}
+                        sendMail({...params});
+                      });
+                }}
+            >
+              Request for Proof
+            </LargeButton>
+          }
+      />
+
+      <CenteredModal
+          show={completeModal}
+          onHide={() => setCompleteModal(false)}
+          title="Request Completed"
+          body={
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '8px' }}>
+              <span style={{ marginBottom: '4px' }}>Your request has been sent to</span>
+              <span style={{ fontSize: '14px', fontWeight: 700, color: baseColor.green, marginBottom: '20px' }}>
+              {`"${reportData.email}"`}
+            </span>
+              <span style={{ marginBottom: '4px' }}>The autogenerated phrase is</span>
+              <span style={{ fontSize: '14px', fontWeight: 700, color: baseColor.green, marginBottom: '20px' }}>
+              {`"${reportData.phrase}"`}
+            </span>
+            </div>
+          }
+          footer={
+            <LargeButton
+                style={{ width: '200px', backgroundColor: 'black', color: 'white' }}
+                onClick={() => {
+                  setCompleteModal(false);
+                  setReportData(initReportData);
+                  nav('/profile/report-list')
+                }}
+            >
+              Go to Report List
+            </LargeButton>
+          }
+      />
+
+
+      <TopNavigator>
+        <span style={{ fontSize: '18px', color: imageInfo?.title ? 'black' : 'white' }}>{imageInfo?.title || '.'}</span>
+      </TopNavigator>
+      <PaddingBox>
         <ImageContainer style={{ minHeight: '300px', height: '300px' }}>
           <img style={{ width: 'fit-content', maxWidth: '100%' }} src={imageInfo?.imgUrl} alt={imageInfo?.title} />
         </ImageContainer>
@@ -229,7 +344,11 @@ const ImageDetailsPage = () => {
       <BottomContainer style={{ backgroundColor: baseColor.beige }}>
         <div style={{ display: 'flex', width: '100%', height: '100%' }}>
           <LargeButton
-            onClick={() => nav('report')}
+            onClick={() => {
+              // setReportData({ nickname: el.creator, title: el.title, email: 'email' });
+              setModal(true);
+            }
+          }
             style={{
               width: '48px',
               background: 'white',

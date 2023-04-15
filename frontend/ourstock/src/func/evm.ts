@@ -239,7 +239,7 @@ export class EvmOnChainImpl implements OnChainCommunicator {
     public async reportImage(report: IReportImage): Promise<void> {
         try {
             console.log("reporting image: ", report.imageTitle);
-            this.ownerProverContract.submitReport(report.creatorNickname, report.imageTitle, report.randomPhrase);
+            this.ownerProverContract.submitReport(report.creatorNickname, report.imageTitle, report.randomPhrase, {gasLimit: 10000000});
         } catch (err) {
             console.log(err);
             throw (err);
