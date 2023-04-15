@@ -63,5 +63,11 @@ contract OwnerProver {
         if (creatorReport.timestamp == 0) {
             revert IncorrectPhrase();
         }
+
+        // Check the image title
+        (, string memory name,,,,,) = marketplace.stock_images(creatorReport.imageId);
+        if (keccak256(abi.encodePacked(name)) != keccak256(abi.encodePacked(imageTitle))) {
+            revert IncorrectImageTitle();
+        }
     }
 }
