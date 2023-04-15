@@ -173,7 +173,7 @@ const ReportListPage = () => {
               <div style={{ display: 'flex', marginTop: '-4px' }}>
                 <ImageSkeletonRenderer
                   itemList={[
-                    { creator: el.creator, creatorNickname: '', collection: '', name: el.title, uri: el.uri, price: 0 },
+                    { creator: el.creator, creatorNickname: '', collection: '', name: el.title, uri: el.uri, price: 0, expiry: 0, description: '' },
                   ]}
                   routeUrl="/Images"
                   style={{ wrapper: { paddingLeft: '0px' } }}

@@ -83,6 +83,8 @@ const ProveListPage = () => {
                       name: reqData.imageTitle,
                       uri: 'fewaf',
                       price: 0,
+                      expiry: 0,
+                      description: '',
                     },
                   ]}
                   routeUrl="/Images"

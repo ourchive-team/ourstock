@@ -74,6 +74,8 @@ const ImageDetailsPage = () => {
             name: 'mildpanic',
             uri: s1,
             price: 1,
+            expiry: 0,
+            description: '',
           },
           {
             creator: '0x7cdcb7db6176fadcdc75ddaa94cc4b5b9246d81956b9b0b01ab3d503e646752c',
@@ -82,6 +84,8 @@ const ImageDetailsPage = () => {
             name: 'testing',
             uri: s2,
             price: 1,
+            expiry: 0,
+            description: '',
           },
           {
             creator: '0x9d2fbc2ade41ba9f720d911e34980768fa555ed77e87e779b1f34fc708543a7e',
@@ -90,6 +94,8 @@ const ImageDetailsPage = () => {
             name: '1234',
             uri: s3,
             price: 1,
+            expiry: 0,
+            description: '',
           },
           {
             creator: '0x225d39dbec63f34bdafdad218a7c79d0d2d9eac46ca43783668ec4c47fbe1e4c',
@@ -98,6 +104,8 @@ const ImageDetailsPage = () => {
             name: 'testinggg',
             uri: s4,
             price: 1,
+            expiry: 0,
+            description: '',
           },
           {
             creator: '0xb1ee0eee34e231fd0236b59a6e96f6027a5576bd65417e59edabd233729470c5',
@@ -106,6 +114,8 @@ const ImageDetailsPage = () => {
             name: 'a',
             uri: s5,
             price: 1,
+            expiry: 0,
+            description: '',
           },
         ]);
         setSimilarWorks([
@@ -116,6 +126,8 @@ const ImageDetailsPage = () => {
             name: 'mildpanic',
             uri: o1,
             price: 1,
+            expiry: 0,
+            description: '',
           },
           {
             creator: '0x7cdcb7db6176fadcdc75ddaa94cc4b5b9246d81956b9b0b01ab3d503e646752c',
@@ -124,6 +136,8 @@ const ImageDetailsPage = () => {
             name: 'testing',
             uri: o2,
             price: 1,
+            expiry: 0,
+            description: '',
           },
           {
             creator: '0x9d2fbc2ade41ba9f720d911e34980768fa555ed77e87e779b1f34fc708543a7e',
@@ -132,6 +146,8 @@ const ImageDetailsPage = () => {
             name: '1234',
             uri: o3,
             price: 1,
+            expiry: 0,
+            description: '',
           },
           {
             creator: '0x225d39dbec63f34bdafdad218a7c79d0d2d9eac46ca43783668ec4c47fbe1e4c',
@@ -140,6 +156,8 @@ const ImageDetailsPage = () => {
             name: 'testinggg',
             uri: o4,
             price: 1,
+            expiry: 0,
+            description: '',
           },
           {
             creator: '0xb1ee0eee34e231fd0236b59a6e96f6027a5576bd65417e59edabd233729470c5',
@@ -148,6 +166,8 @@ const ImageDetailsPage = () => {
             name: 'a',
             uri: o5,
             price: 1,
+            expiry: 0,
+            description: '',
           },
         ]);
       }, 2000);

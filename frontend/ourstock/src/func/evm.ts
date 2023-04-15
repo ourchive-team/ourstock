@@ -151,7 +151,7 @@ export class EvmOnChainImpl implements OnChainCommunicator {
                 const { id, name, description, uri, price, creator, expiry } = await this.marketplaceContract.stock_images(i);
                 // eslint-disable-next-line no-await-in-loop
                 const creatorNickname = await this.getUserNickname(creator);
-                const image = { creator, creatorNickname, collection: `${creatorNickname}'s collection`, name, uri, price };
+                const image = { creator, creatorNickname, collection: `${creatorNickname}'s collection`, name, uri, price, expiry: 0, description: '' };
                 tokens.push(image);
                 console.log("image", image);
             }
@@ -170,7 +170,7 @@ export class EvmOnChainImpl implements OnChainCommunicator {
             for (let i = 0; i < images.length; i += 1) {
                 const image = images[i];
                 const creatorNickname = await this.getUserNickname(image.creator);
-                const item = { creator: image.creator, creatorNickname: creatorNickname, collection: `${image.creatorNickname}'s collection`, name: image.name, uri: image.uri, price: image.price };
+                const item = { creator: image.creator, creatorNickname: creatorNickname, collection: `${image.creatorNickname}'s collection`, name: image.name, uri: image.uri, price: image.price, expiry: 0, description: image.description };
                 tokens.push(item);
             }
         } catch (err) {
@@ -192,7 +192,8 @@ export class EvmOnChainImpl implements OnChainCommunicator {
             console.log(images);
             for (let i = 0; i < images.length; i += 1) {
                 const image = images[i];
-                const item = { creator: image.creator, creatorNickname: image.creatorNickname, collection: `${image.creatorNickname}'s collection`, name: image.name, uri: image.uri, price: image.price };
+                const creatorNickname = await this.getUserNickname(image.creator);
+                const item = { creator: image.creator, creatorNickname, collection: `${creatorNickname}'s collection`, name: image.name, uri: image.uri, price: image.price, expiry: 0, description: image.description };
                 tokens.push({ token: item, expireDate: 0 });
             }
         } catch (err) {
@@ -229,7 +230,7 @@ export class EvmOnChainImpl implements OnChainCommunicator {
     public async proveImage(proof: IProveImage): Promise<void> {
         try {
             console.log("prove image ownership: ", proof.imageTitle);
-            this.ownerProverContract.proveOwnership(proof.userNickname, proof.creatorNickname, proof.imageTitle, proof.phrase);
+            await this.ownerProverContract.proveOwnership(proof.userNickname, proof.creatorNickname, proof.imageTitle, proof.phrase);
         } catch (err) {
             console.log(err);
             throw (err);
@@ -238,8 +239,8 @@ export class EvmOnChainImpl implements OnChainCommunicator {
 
     public async reportImage(report: IReportImage): Promise<void> {
         try {
-            console.log("reporting image: ", report.imageTitle);
-            this.ownerProverContract.submitReport(report.creatorNickname, report.imageTitle, report.randomPhrase, {gasLimit: 10000000});
+            console.log("reporting image: ", report.creatorNickname, report.imageTitle, report.randomPhrase);
+            await this.ownerProverContract.submitReport(report.creatorNickname, report.imageTitle, report.randomPhrase, {gasLimit: 10000000});
         } catch (err) {
             console.log(err);
             throw (err);
@@ -247,23 +248,40 @@ export class EvmOnChainImpl implements OnChainCommunicator {
     }
 
     public async getReportList(nickname: string): Promise<IProveItem[]> {
+        const proofs: IProveItem[] = [];
         try {
-            console.log("get report list: ", nickname);
-            const { result } = this.ownerProverContract.getReportList(nickname);
-            console.log("getReportList", result);
+            console.log("get report list: ", nickname, nickname.length);
+            const result = await this.ownerProverContract.getReportList(nickname);
+
+            await Promise.all(
+                result.map(async (el: any) => {
+                    const { id, name, description, uri, price, creator, expiry } = await this.marketplaceContract.stock_images(el.imageId);
+                    const proof = {  proved: el.proved, title: name, creator, requestedDate: new Date(), provedDate: new Date(), keyPhrase: el.phrase,uri: uri};
+                    proofs.push(proof);
+                })
+            )
         } catch (err) {
-            console.log("getReportList", err);
+            console.error("getReportList", err);
             throw (err);
         }
-
-        return [];
+        
+        console.log(proofs);
+        return proofs;
     }
 
     public async getProveList(nickname: string): Promise<IProveItem[]> {
+        const proofs: IProveItem[] = [];
         try {
-            console.log("get prove list: ", nickname);
-            const { result } = this.ownerProverContract.getProofList(nickname);
-            console.log("getProveList", result);
+            console.log("get prove list: ", nickname, nickname.length);
+            const { result } = await this.ownerProverContract.getProofList(nickname);
+
+            await Promise.all(
+                result.map(async (el: any) => {
+                    const { id, name, description, uri, price, creator, expiry } = await this.marketplaceContract.stock_images(el.imageId);
+                    const proof = {  proved: el.proved, title: name, creator, requestedDate: new Date(), provedDate: new Date(), keyPhrase: el.phrase,uri: uri};
+                    proofs.push(proof);
+                })
+            )
         } catch (err) {
             console.log("getProveList", err);
             throw (err);

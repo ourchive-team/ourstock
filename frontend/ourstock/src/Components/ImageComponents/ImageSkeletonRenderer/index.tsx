@@ -15,6 +15,8 @@ export interface TokenItem {
   name: string;
   uri: string;
   price: number;
+  expiry: number | null;
+  description: string | null;
 }
 
 export interface IImageSkeletonRenderer {

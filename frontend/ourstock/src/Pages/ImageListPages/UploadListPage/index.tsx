@@ -70,7 +70,7 @@ const UploadListPage = () => {
                     color: 'rgba(0,0,0,0.6)',
                   }}
                 >
-                  description todo
+                  {el.description}
                 </StyledSpan>
 
                 <div style={{ display: 'flex', alignItems: 'center', marginTop: 'auto' }}>

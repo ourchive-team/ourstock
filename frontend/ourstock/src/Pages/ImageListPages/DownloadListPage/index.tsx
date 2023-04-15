@@ -26,6 +26,8 @@ const DownloadList = () => {
         collection: 'test',
         price: 0,
         uri: 'test',
+        expiry: 0,
+        description: '',
       },
     },
   ]);
@@ -63,6 +65,8 @@ const DownloadList = () => {
                     name: el.token.name,
                     uri: el.token.uri,
                     price: el.token.price,
+                    expiry: el.expireDate,
+                    description: el.token.description,
                   },
                 ]}
                 routeUrl="/Images"
@@ -85,7 +89,7 @@ const DownloadList = () => {
                   {el.token.name}
                 </StyledSpan>
                 <StyledSpan style={{ fontSize: '12px', marginBottom: '4px', color: 'rgba(0,0,0,0.6)' }}>
-                  good for general purpose videos
+                  {el.token.description}
                 </StyledSpan>
                 <CreatorInfo
                   profileImg={profileIcon}
