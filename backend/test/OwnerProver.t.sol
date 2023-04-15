@@ -53,4 +53,13 @@ contract OwnerProverTest is Test {
         vm.expectRevert(IncorrectImageTitle.selector);
         ownerProver.submitReport(creatorNickname, "incorrectImageTitle", "testPhrase");
     }
+
+    function testProveOwnershipUserNotImageOwner() public {
+        vm.prank(creatorAddress);
+        ownerProver.submitReport(creatorNickname, "testName2", "testPhrase");
+
+        vm.prank(msg.sender);
+        vm.expectRevert(UserNotImageOwner.selector);
+        ownerProver.proveOwnership(purchaserNickname, creatorNickname, "testName2", "testPhrase");
+    }
 }
