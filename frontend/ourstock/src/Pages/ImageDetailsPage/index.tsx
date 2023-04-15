@@ -310,7 +310,7 @@ const ImageDetailsPage = () => {
       </TopNavigator>
       <PaddingBox>
         <ImageContainer style={{ minHeight: '300px', height: '300px', borderRadius:'8px' }}>
-          <img style={{ width: 'fit-content', maxWidth: '100%' }} src={imageInfo?.imgUrl} alt={imageInfo?.title} />
+          <img style={{ width: 'fit-content', maxWidth: '100%', borderRadius:'8px' }} src={imageInfo?.imgUrl} alt={imageInfo?.title} />
         </ImageContainer>
       </PaddingBox>
       <PaddingBox style={{ padding: '0px 16px' }}>
