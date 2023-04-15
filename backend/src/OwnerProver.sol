@@ -21,8 +21,7 @@ struct ProofElement {
 
 contract OwnerProver {
     Marketplace marketplace;
-    mapping(string => mapping(string => ReportElement)) creatorReportTable;
-    mapping(string => string[]) private creatorPhraseListTable;
+    mapping(string => ReportElement[]) creatorToReports;
     mapping(string => ProofElement[]) userNicknameToProofs;
 
     constructor(address marketplaceAddr) {
@@ -47,14 +46,9 @@ contract OwnerProver {
             revert IncorrectImageTitle();
         }
 
-        // Add the report to creatorReportTable
-        mapping(string => ReportElement) storage reports = creatorReportTable[creatorName];
-        string[] storage creatorPhraseList = creatorPhraseListTable[creatorName];
-        if (reports[phrase].timestamp == 0) {
-            // timestamp is 0 if reports[phrase] is empty. antipattern. FIXME
-            reports[phrase] = ReportElement(targetImage.id, false, block.timestamp, phrase);
-            creatorPhraseList.push(phrase);
-        }
+        // Add the report to creatorToReports
+        ReportElement[] storage reports = creatorToReports[creatorName];
+        reports.push(ReportElement(targetImage.id, false, block.timestamp, phrase));
     }
 
     function proveOwnership(
@@ -64,13 +58,21 @@ contract OwnerProver {
         string calldata phrase
     ) external {
         // Get the creator's report list
-        mapping(string => ReportElement) storage creatorReportMap = creatorReportTable[creatorName];
+        ReportElement[] memory creatorReports = creatorToReports[creatorName];
+        uint256 reportIdx = creatorReports.length;
 
-        // Check the phrase, FIXME
-        ReportElement storage creatorReport = creatorReportMap[phrase];
-        if (creatorReport.timestamp == 0) {
+        for (uint256 i = 0; i < creatorReports.length; i++) {
+            if (areSameStrings(creatorReports[i].phrase, phrase)) {
+                reportIdx = i;
+                break;
+            }
+        }
+
+        if (reportIdx == creatorReports.length) {
             revert IncorrectPhrase();
         }
+
+        ReportElement storage creatorReport = creatorToReports[creatorName][reportIdx];
 
         // Check the image title
         (, string memory name,,,,,) = marketplace.stock_images(creatorReport.imageId);
