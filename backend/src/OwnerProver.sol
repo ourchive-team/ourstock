@@ -4,6 +4,7 @@ import "./Marketplace.sol";
 
 error IncorrectImageTitle();
 error IncorrectPhrase();
+error UserNotImageOwner();
 
 struct ReportElement {
     uint256 imageId;
@@ -66,9 +67,28 @@ contract OwnerProver {
 
         // Check the image title
         (, string memory name,,,,,) = marketplace.stock_images(creatorReport.imageId);
-        if (areSameStrings(name, imageTitle)) {
+        if (!areSameStrings(name, imageTitle)) {
             revert IncorrectImageTitle();
         }
+
+        // Check if the image is in the user's purchase list
+        if (!checkUserPurchasedImage(msg.sender, creatorReport.imageId)) {
+            revert UserNotImageOwner();
+        }
+    }
+
+    function checkUserPurchasedImage(address user, uint256 imageId) internal view returns (bool) {
+        StockImage[] memory purchasedImages = marketplace.getPurchasedImages(user);
+        (uint256 targetImageId, string memory targetImageName,,,,,) = marketplace.stock_images(imageId);
+
+        for (uint256 i = 0; i < purchasedImages.length; i++) {
+            StockImage memory purchasedImage = purchasedImages[i];
+            if (purchasedImage.id == targetImageId && areSameStrings(purchasedImage.name, targetImageName)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     // Util functions
