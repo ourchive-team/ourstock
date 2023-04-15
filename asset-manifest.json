@@ -1,0 +1,35 @@
+{
+  "files": {
+    "main.css": "/static/css/main.81e1ec44.css",
+    "main.js": "/static/js/main.02914af1.js",
+    "static/media/CormorantSC-Bold.ttf": "/static/media/CormorantSC-Bold.a75770281cfcdc3947bd.ttf",
+    "static/media/o3.jpg": "/static/media/o3.9ba458b9ceb68a1e77d0.jpg",
+    "static/media/o2.jpg": "/static/media/o2.7f5cba0a541ba2f7af35.jpg",
+    "static/media/o4.jpg": "/static/media/o4.425f71906c5002576703.jpg",
+    "static/media/s2.jpg": "/static/media/s2.92dc2d9bc1fb8dff87b9.jpg",
+    "static/media/o5.jpg": "/static/media/o5.01038c346c00df2366ca.jpg",
+    "static/media/s5.jpg": "/static/media/s5.e39f6054e6f27d9605e8.jpg",
+    "static/media/s3.jpg": "/static/media/s3.04590d60e54009bbd027.jpg",
+    "static/media/s1.jpg": "/static/media/s1.ae86c101696e3e89d836.jpg",
+    "static/media/profile-icon.png": "/static/media/profile-icon.5d01f63b7a23e8475b5c.png",
+    "static/media/prev.svg": "/static/media/prev.c034e5dfc94558a03aae374163e1179f.svg",
+    "static/media/homeActive.svg": "/static/media/homeActive.72e33285ca62223627c052797f03c474.svg",
+    "static/media/home.svg": "/static/media/home.e79689ff6a15d5c6670eb7f543607c83.svg",
+    "static/media/search-icon-black.svg": "/static/media/search-icon-black.eacf8a1b617eac2a2ca148a57f21ef50.svg",
+    "index.html": "/index.html",
+    "static/media/visitors.svg": "/static/media/visitors.2af86d3f5e45fc38d8da893d75296c68.svg",
+    "static/media/owners.svg": "/static/media/owners.62e221b835fbe38f8edefafbd5cdeb2a.svg",
+    "static/media/plus.svg": "/static/media/plus.05404d01a8be6edb2de144273dee5c87.svg",
+    "static/media/heart.svg": "/static/media/heart.70cdd23a545f6bc3c50a88f5619b95e1.svg",
+    "static/media/upload.svg": "/static/media/upload.9f03b2edf01f8fef85f3d71b6412454f.svg",
+    "static/media/profileActive.svg": "/static/media/profileActive.16b87bee297e0ea12fdb330b418e1ae9.svg",
+    "static/media/profile.svg": "/static/media/profile.64bf707c386efd95307581994a950596.svg",
+    "static/media/flag.svg": "/static/media/flag.facbc8de68a807428819caff17a6ecbe.svg",
+    "main.81e1ec44.css.map": "/static/css/main.81e1ec44.css.map",
+    "main.02914af1.js.map": "/static/js/main.02914af1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.81e1ec44.css",
+    "static/js/main.02914af1.js"
+  ]
+}
