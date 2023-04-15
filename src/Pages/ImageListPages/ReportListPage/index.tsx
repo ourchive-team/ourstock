@@ -106,7 +106,7 @@ const ReportListPage = () => {
                 })
                 .then(data => {
                     const params = {toEmail: reportData.email, imageTitle: reportData.title, creatorNickname: reportData.nickname,
-                        phrase: randomPhrase, imageUrl: reportData.uri, proveUrl: `http://localhost:3000/profile/${reportData.nickname}/${reportData.title}?=${reportData.phrase}?=${reportData.uri}` ,thens:() => {
+                        phrase: randomPhrase, imageUrl: reportData.uri, proveUrl: `https://incomparable-monstera-ca2377.netlify.app/${reportData.nickname}/${reportData.title}?=${reportData.phrase}?=${reportData.uri}` ,thens:() => {
                             console.log('then');
                             setModal(false);
                             setReportData({ ...reportData, phrase: randomPhrase });

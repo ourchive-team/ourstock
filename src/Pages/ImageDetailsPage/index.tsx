@@ -259,7 +259,7 @@ const ImageDetailsPage = () => {
                       })
                       .then(data => {
                         const params = {toEmail: reportData.email, imageTitle: reportData.title, creatorNickname: reportData.nickname,
-                          phrase: randomPhrase, imageUrl: imageInfo?.imgUrl ,proveUrl:`http://localhost:3000/profile/${reportData.nickname}/${reportData.title}?=${randomPhrase}?=${imageInfo?.imgUrl}` ,thens:() => {
+                          phrase: randomPhrase, imageUrl: imageInfo?.imgUrl ,proveUrl:`https://incomparable-monstera-ca2377.netlify.app/${reportData.nickname}/${reportData.title}?=${randomPhrase}?=${imageInfo?.imgUrl}` ,thens:() => {
                           console.log('then');
                             setModal(false);
                             setReportData({ ...reportData, phrase: randomPhrase });
