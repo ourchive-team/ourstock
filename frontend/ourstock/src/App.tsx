@@ -37,7 +37,7 @@ const App = () => {
                   <Route path="/profile/download-list" element={<DownloadList />} />
                   <Route path="/profile/report-list" element={<ReportListPage />} />
                   <Route path="/profile/prove-list" element={<ProveListPage />} />
-                  <Route path="/profile/prove-list/:nickname/:title/:phrase/:uri" element={<EmailToProvePage/>} />
+                  <Route path="/profile/:nickname/:title" element={<EmailToProvePage/>} />
               </Routes>
           </LoginWrapper>
       </BrowserRouter>

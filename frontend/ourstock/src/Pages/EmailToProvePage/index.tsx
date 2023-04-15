@@ -12,15 +12,15 @@ import {useNavigate} from "react-router-dom";
 const EmailToProvePage = () => {
     const [nickname, setNickname] = useRecoilState(nicknameState);
     const pathItems = window.location.pathname.split('/');
+    const query = window.location.search.split('?=')
 
-    const initReqData: any = {
-        userNickname: nickname,
-        creatorNickname: pathItems[3],
-        imageTitle: pathItems[4],
-        phrase: pathItems[5],
-        uri: pathItems[6],
-    };
-
+    const initReqData:any = {
+            userNickname: nickname,
+            creatorNickname: pathItems[2],
+            imageTitle: pathItems[3],
+            phrase: query[1],
+            uri: query[2],
+    }
 
     const [reqData, setReqData] = useState<any>(initReqData);
     const [modal, setModal] = useState(true);
@@ -138,7 +138,6 @@ const EmailToProvePage = () => {
                 }
                 footer={<LargeButton onClick={() => {setCompleteModal(false); nav("/profile/prove-list")}}>Go to prove List</LargeButton>}
             />
-
         </div>
     )
 }
