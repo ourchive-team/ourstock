@@ -165,16 +165,12 @@ export class EvmOnChainImpl implements OnChainCommunicator {
     public async getUploadedImageList(address: string): Promise<TokenItem[]> {
         const tokens: TokenItem[] = [];
         try {
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const signer = provider.getSigner();
-
-            const MarketplaceContract = new ethers.Contract(this.marketplaceAddress, MarketplaceABI, signer);
-
-            const images = await MarketplaceContract.getUploadedImages(address);
+            const images = await this.marketplaceContract.getUploadedImages(address);
             console.log(images);
             for (let i = 0; i < images.length; i += 1) {
                 const image = images[i];
-                const item = { creator: image.creator, creatorNickname: image.creatorNickname, collection: `${image.creatorNickname}'s collection`, name: image.name, uri: image.uri, price: image.price };
+                const creatorNickname = await this.getUserNickname(image.creator);
+                const item = { creator: image.creator, creatorNickname: creatorNickname, collection: `${image.creatorNickname}'s collection`, name: image.name, uri: image.uri, price: image.price };
                 tokens.push(item);
             }
         } catch (err) {
