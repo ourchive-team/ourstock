@@ -3,6 +3,7 @@ pragma solidity ^0.8.17;
 import "openzeppelin-contracts/contracts/token/ERC1155/ERC1155.sol";
 
 error DuplicatedImageName();
+error ImageNotFound();
 
 struct StockImage {
     uint256 id;
@@ -44,18 +45,12 @@ contract Marketplace is ERC1155 {
         latest_id++;
     }
 
-    function checkDuplicateName(
-        address creator,
-        string calldata name
-    ) private view {
+    function checkDuplicateName(address creator, string calldata name) private view {
         uint256[] memory image_ids = creator_to_stock_image_ids[creator];
 
         for (uint256 i = 0; i < image_ids.length; i++) {
             string memory image_name = stock_images[image_ids[i]].name;
-            if (
-                keccak256(abi.encodePacked(image_name)) ==
-                keccak256(abi.encodePacked(name))
-            ) {
+            if (keccak256(abi.encodePacked(image_name)) == keccak256(abi.encodePacked(name))) {
                 revert DuplicatedImageName();
             }
         }
@@ -79,5 +74,20 @@ contract Marketplace is ERC1155 {
         // mint the stock image to the buyer
         _mint(msg.sender, _image_id, 1, "");
         owner_to_stock_image_ids[msg.sender].push(_image_id);
+    }
+
+    function getImageByCreatorAndName(address _creator, string calldata _image_name)
+        external
+        view
+        returns (StockImage memory)
+    {
+        uint256[] memory creator_image_ids = creator_to_stock_image_ids[_creator];
+        for (uint256 i = 0; i < creator_image_ids.length; i++) {
+            string memory image_name = stock_images[creator_image_ids[i]].name;
+            if (keccak256(abi.encodePacked(image_name)) == keccak256(abi.encodePacked(_image_name))) {
+                return stock_images[creator_image_ids[i]];
+            }
+        }
+        revert ImageNotFound();
     }
 }
