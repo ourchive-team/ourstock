@@ -20,4 +20,24 @@ contract MarketplaceTest is Test {
         vm.prank(msg.sender);
         marketplace.uploadImage(_price, _name, _description, _uri, _expiry);
     }
+
+    function testUploadImageWithDuplicatedName() public {
+        vm.prank(msg.sender);
+        marketplace.uploadImage(
+            1000,
+            "test",
+            "test",
+            "https://example.com",
+            1000
+        );
+        vm.prank(msg.sender);
+        vm.expectRevert(DuplicatedImageName.selector);
+        marketplace.uploadImage(
+            1000,
+            "test",
+            "image of duplicate name",
+            "https://example.com",
+            1000
+        );
+    }
 }
