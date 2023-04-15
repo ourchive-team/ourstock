@@ -30,4 +30,11 @@ contract UserManagerTest is Test {
         vm.expectRevert(EmptyNicknameNotAllowed.selector);
         userManager.setUserNickname(msg.sender, "");
     }
+
+    function testNicknameAlreadyExists(string memory _nickname) public {
+        vm.assume(bytes(_nickname).length > 0);
+        vm.prank(msg.sender);
+        userManager.setUserNickname(msg.sender, _nickname);
+        assertTrue(userManager.nicknameAlreadyExists(_nickname));
+    }
 }
