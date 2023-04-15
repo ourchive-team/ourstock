@@ -57,22 +57,14 @@ contract OwnerProver {
         string calldata imageTitle,
         string calldata phrase
     ) external {
-        // Get the creator's report list
-        ReportElement[] memory creatorReports = creatorToReports[creatorName];
-        uint256 reportIdx = creatorReports.length;
-
-        for (uint256 i = 0; i < creatorReports.length; i++) {
-            if (areSameStrings(creatorReports[i].phrase, phrase)) {
-                reportIdx = i;
-                break;
-            }
-        }
+        ReportElement[] storage creatorReports = creatorToReports[creatorName];
+        uint256 reportIdx = getCreatorReportIdx(creatorName, phrase);
 
         if (reportIdx == creatorReports.length) {
             revert IncorrectPhrase();
         }
 
-        ReportElement storage creatorReport = creatorToReports[creatorName][reportIdx];
+        ReportElement storage creatorReport = creatorReports[reportIdx];
 
         // Check the image title
         (, string memory name,,,,,) = marketplace.stock_images(creatorReport.imageId);
@@ -90,6 +82,21 @@ contract OwnerProver {
         creatorReport.proved = true;
     }
 
+    // Util functions
+    function getCreatorReportIdx(string calldata creatorName, string calldata phrase) internal view returns (uint256) {
+        ReportElement[] memory creatorReports = creatorToReports[creatorName];
+        uint256 result = creatorReports.length;
+
+        for (uint256 i = 0; i < creatorReports.length; i++) {
+            if (areSameStrings(creatorReports[i].phrase, phrase)) {
+                result = i;
+                break;
+            }
+        }
+
+        return result;
+    }
+
     function checkUserPurchasedImage(address user, uint256 imageId) internal view returns (bool) {
         StockImage[] memory purchasedImages = marketplace.getPurchasedImages(user);
         (uint256 targetImageId, string memory targetImageName,,,,,) = marketplace.stock_images(imageId);
@@ -104,7 +111,6 @@ contract OwnerProver {
         return false;
     }
 
-    // Util functions
     function areSameStrings(string memory s1, string memory s2) internal pure returns (bool) {
         return keccak256(abi.encodePacked(s1)) == keccak256(abi.encodePacked(s2));
     }
