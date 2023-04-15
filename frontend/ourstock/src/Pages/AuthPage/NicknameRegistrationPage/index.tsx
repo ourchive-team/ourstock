@@ -6,6 +6,7 @@ import {addressState, loginState} from "../../../states/loginState";
 import {LargeButton, StyledInput} from "../../../styles";
 
 import BottomContainer from "../../../Components/NavigatorComponents/BottomContainer";
+import {onchain} from "../../../func";
 
 const NicknameRegistrationPage = () => {
     const [isLogin, setIsLogin] = useRecoilState(loginState);
@@ -42,10 +43,10 @@ const NicknameRegistrationPage = () => {
                 <LargeButton
                     disabled={!isAvailable}
                     style={{backgroundColor: isAvailable ? 'black' : '#8E8E8E'}}
-                    onClick={() => {
-                        //if login
-                        setIsLogin({isLogin: true})
-                        nav('/main')
+                    onClick={async () => {
+                        await onchain.submitUserNickname(userAddress as unknown as string, userNickname);
+                        setIsLogin({ isLogin: true });
+                        nav('/main');
                     }}
                 >
                     Go to Ourstock
