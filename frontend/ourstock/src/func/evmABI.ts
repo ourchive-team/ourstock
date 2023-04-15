@@ -93,6 +93,16 @@ export const MarketplaceABI = [
     "type": "constructor"
   },
   {
+    "inputs": [],
+    "name": "DuplicatedImageName",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ImageNotFound",
+    "type": "error"
+  },
+  {
     "anonymous": false,
     "inputs": [
       {
@@ -262,16 +272,16 @@ export const MarketplaceABI = [
     "inputs": [
       {
         "internalType": "address",
-        "name": "creator",
+        "name": "_creator",
         "type": "address"
       },
       {
         "internalType": "string",
-        "name": "name",
+        "name": "_image_name",
         "type": "string"
       }
     ],
-    "name": "get_image_by_creator_and_name",
+    "name": "getImageByCreatorAndName",
     "outputs": [
       {
         "components": [
@@ -323,11 +333,11 @@ export const MarketplaceABI = [
     "inputs": [
       {
         "internalType": "address",
-        "name": "user_addr",
+        "name": "_owner",
         "type": "address"
       }
     ],
-    "name": "get_purchased_images",
+    "name": "getPurchasedImages",
     "outputs": [
       {
         "components": [
@@ -379,11 +389,11 @@ export const MarketplaceABI = [
     "inputs": [
       {
         "internalType": "address",
-        "name": "creator_addr",
+        "name": "_creator",
         "type": "address"
       }
     ],
-    "name": "get_uploaded_images",
+    "name": "getUploadedImages",
     "outputs": [
       {
         "components": [
@@ -472,11 +482,11 @@ export const MarketplaceABI = [
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "id",
+        "name": "_image_id",
         "type": "uint256"
       }
     ],
-    "name": "purchase_image",
+    "name": "purchaseImage",
     "outputs": [],
     "stateMutability": "payable",
     "type": "function"
@@ -661,7 +671,7 @@ export const MarketplaceABI = [
         "type": "uint256"
       }
     ],
-    "name": "upload_image",
+    "name": "uploadImage",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

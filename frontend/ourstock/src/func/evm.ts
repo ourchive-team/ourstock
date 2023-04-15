@@ -1,5 +1,5 @@
 
- 
+
 
 import { Signer, ethers } from 'ethers';
 import { SetterOrUpdater } from 'recoil';
@@ -122,7 +122,7 @@ export class EvmOnChainImpl implements OnChainCommunicator {
         let imageInfo = <ImageInfo>{};
         try {
             console.log(creatorAddress, imageTitle);
-            const { name, description, uri, price, creator, expiry } = await this.marketplaceContract.get_image_by_creator_and_name(creatorAddress, imageTitle);
+            const { name, description, uri, price, creator, expiry } = await this.marketplaceContract.getImageByCreatorAndName(creatorAddress, imageTitle);
             imageInfo = <ImageInfo>{
                 title: name,
                 price,
@@ -168,7 +168,12 @@ export class EvmOnChainImpl implements OnChainCommunicator {
     public async getUploadedImageList(address: string): Promise<TokenItem[]> {
         const tokens: TokenItem[] = [];
         try {
-            const images = await this.marketplaceContract.get_uploaded_images(address);
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
+
+            const MarketplaceContract = new ethers.Contract(this.marketplaceAddress, MarketplaceABI, signer);
+
+            const images = await MarketplaceContract.getUploadedImages(address);
             console.log(images);
             for (let i = 0; i < images.length; i += 1) {
                 const image = images[i];
@@ -185,7 +190,12 @@ export class EvmOnChainImpl implements OnChainCommunicator {
     public async getPurchasedImageList(address: string): Promise<TokenPurchaseItem[]> {
         const tokens: TokenPurchaseItem[] = [];
         try {
-            const images = await this.marketplaceContract.get_purchased_images(address);
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
+
+            const MarketplaceContract = new ethers.Contract(this.marketplaceAddress, MarketplaceABI, signer);
+
+            const images = await MarketplaceContract.getPurchasedImages(address);
             console.log(images);
             for (let i = 0; i < images.length; i += 1) {
                 const image = images[i];
@@ -204,7 +214,7 @@ export class EvmOnChainImpl implements OnChainCommunicator {
         const imageUri = await uploadToIPFS(nft.img);
         try {
             // uint256 price, string calldata name, string calldata description, string calldata uri, uint256 expiry
-            await this.marketplaceContract.upload_image(nft.price, nft.title, nft.description, imageUri, 0);
+            await this.marketplaceContract.uploadImage(nft.price, nft.title, nft.description, imageUri, 0, { gasLimit: 3000000 });
         } catch (err) {
             console.log(err);
             throw (err);
@@ -214,10 +224,10 @@ export class EvmOnChainImpl implements OnChainCommunicator {
     public async buyImage(nft: IBuyImage): Promise<void> {
         try {
             console.log("buyImage: ", nft.creator, nft.imageTitle);
-            const { id } = await this.marketplaceContract.get_image_by_creator_and_name(nft.creator, nft.imageTitle);
+            const { id } = await this.marketplaceContract.getImageByCreatorAndName(nft.creator, nft.imageTitle);
             console.log("buyImage: ", id);
 
-            await this.marketplaceContract.purchase_image(id);
+            await this.marketplaceContract.purchaseImage(id);
         } catch (err) {
             console.log(err);
             throw (err);
