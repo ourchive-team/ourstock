@@ -259,10 +259,10 @@ const ProveListPage = () => {
                           phrase: el.keyPhrase,
                         };
 
-                        // onchain.proveImage({ ...itemData }).then(data => {
-                        setReqData({ ...itemData });
-                        setModal(true);
-                        // });
+                        onchain.proveImage({ ...itemData }).then(data => {
+                            setReqData({ ...itemData });
+                            setModal(true);
+                        });
                       }}
                       style={{ width: '114px', minHeight: '30px', height: '30px' }}
                     >
