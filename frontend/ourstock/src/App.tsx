@@ -19,6 +19,7 @@ import UploadListPage from "./Pages/ImageListPages/UploadListPage";
 import DownloadList from "./Pages/ImageListPages/DownloadListPage";
 import ReportListPage from "./Pages/ImageListPages/ReportListPage";
 import ProveListPage from "./Pages/ImageListPages/ProveListPage";
+import EmailToProvePage from "./Pages/EmailToProvePage";
 
 const App = () => {
   return (
@@ -36,6 +37,7 @@ const App = () => {
                   <Route path="/profile/download-list" element={<DownloadList />} />
                   <Route path="/profile/report-list" element={<ReportListPage />} />
                   <Route path="/profile/prove-list" element={<ProveListPage />} />
+                  <Route path="/profile/prove-list/:nickname/:title/:phrase/:uri" element={<EmailToProvePage/>} />
               </Routes>
           </LoginWrapper>
       </BrowserRouter>

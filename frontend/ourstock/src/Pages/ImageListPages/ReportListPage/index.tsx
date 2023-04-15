@@ -106,7 +106,7 @@ const ReportListPage = () => {
                 })
                 .then(data => {
                     const params = {toEmail: reportData.email, imageTitle: reportData.title, creatorNickname: reportData.nickname,
-                        phrase: randomPhrase, imageUrl: reportData.uri ,proveUrl: `https://github.io/ourstock/profile/prove-list` ,thens:() => {
+                        phrase: randomPhrase, imageUrl: reportData.uri, proveUrl: `https://ourchive-team.github.io/ourstock/${reportData.nickname}/${reportData.title}?phrase=${reportData.phrase}/${reportData.uri}` ,thens:() => {
                             console.log('then');
                             setModal(false);
                             setReportData({ ...reportData, phrase: randomPhrase });

@@ -41,7 +41,7 @@ const ProveListPage = () => {
 
   const [proveList, setProveList] = useState<IProveItem[]>([]);
 
-  const [nickname] = useRecoilState(nicknameState);
+  const [nickname, setNickname] = useRecoilState(nicknameState);
   const [reqData, setReqData] = useState<IProveImage>(initReqData);
   const [modal, setModal] = useState(false);
   const [completeModal, setCompleteModal] = useState(false);

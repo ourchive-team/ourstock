@@ -259,7 +259,7 @@ const ImageDetailsPage = () => {
                       })
                       .then(data => {
                         const params = {toEmail: reportData.email, imageTitle: reportData.title, creatorNickname: reportData.nickname,
-                          phrase: randomPhrase, imageUrl: imageInfo?.imgUrl ,proveUrl: `https://github.io/ourstock/profile/prove-list` ,thens:() => {
+                          phrase: randomPhrase, imageUrl: imageInfo?.imgUrl ,proveUrl: `https://ourchive-team.github.io/ourstock/profile/prove-list/${reportData.nickname}/${reportData.title}?phrase=${randomPhrase}/${imageInfo?.imgUrl}` ,thens:() => {
                           console.log('then');
                             setModal(false);
                             setReportData({ ...reportData, phrase: randomPhrase });
