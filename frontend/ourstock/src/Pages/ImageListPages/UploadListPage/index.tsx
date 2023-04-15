@@ -26,7 +26,6 @@ const UploadListPage = () => {
   useEffect(() => {
     onchain.getUploadedImageList(addressString).then(data => {
       setUploadedImage(data);
-      console.log(data)
     });
   }, []);
 
@@ -50,7 +49,7 @@ const UploadListPage = () => {
                 height: 'fit-content',
               }}
             >
-              <ImageContainer uri={el.uri} alt={el.name} style={{ width: 'fit-content', maxWidth: '136px' }} />
+              <ImageContainer uri={el.uri} alt={el.name} style={{ padding:'8px 16px 8px 8px', width: 'fit-content', maxWidth: '136px' }} />
               <div
                 style={{
                   display: 'flex',

@@ -33,7 +33,7 @@ const ImageContainer = ({ uri, alt, favorite, style }: IImageContainer) => {
           />
         </div>
       )}
-      <img src={uri} alt={alt} style={style} />
+      <img src={uri} alt={alt} style={{...style, borderRadius: '16px'}} />
     </ImageContainerBox>
   );
 };
@@ -44,7 +44,7 @@ export const ImageContainerBox = styled.div`
   display: flex;
   width: fit-content;
   height: 100%;
-  min-width: 136px;
+  min-width: 100px;
   justify-content: center;
   align-items: center;
   position: relative;

@@ -80,7 +80,6 @@ const ProfilePage = () => {
             skeletonCount={6}
             skeletonWidth={100}
             skeletonHeight={100}
-            style={{ wrapper: { padding: '6px' } }}
             hideDetails
           />
         </div>

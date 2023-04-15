@@ -39,12 +39,13 @@ const ReportListPage = () => {
     title: '',
     email: '',
     phrase: '',
+      uri: '',
   };
 
-  const [nickname] = useRecoilState(nicknameState);
+  const [nickname, setNickname] = useRecoilState(nicknameState);
   const [modal, setModal] = useState(false);
   const [completeModal, setCompleteModal] = useState(false);
-  const [reportData, setReportData] = useState<{ nickname: string; title: string; email: string; phrase?: string }>(
+  const [reportData, setReportData] = useState<{ nickname: string; title: string; email: string; phrase?: string; uri?: string }>(
     initReportData,
   );
 
@@ -97,22 +98,22 @@ const ReportListPage = () => {
             onClick={() => {
               const randomPhrase = (Math.random() + 1).toString(36).substring(8);
 
-              // onchain
-              //   .reportImage({
-              //     creatorNickname: reportData.nickname,
-              //     imageTitle: reportData.title,
-              //     randomPhrase,
-              //   })
-              //   .then(data => {
-              //       const params = {toEmail: reportData.email, imageTitle: reportData.title, creatorNickname: reportData.nickname,
-              //           phrase: randomPhrase, imageUrl: uri ,proveUrl: `https://github.io/ourstock/profile/prove-list` ,thens:() => {
-              //               console.log('then');
-              //               setModal(false);
-              //               setReportData({ ...reportData, phrase: randomPhrase });
-              //               setCompleteModal(true);
-              //           }, errs: () => console.log('failed to send mail')}
-              //       sendMail({...params});
-              //   });
+              onchain
+                .reportImage({
+                  creatorNickname: reportData.nickname,
+                  imageTitle: reportData.title,
+                  randomPhrase,
+                })
+                .then(data => {
+                    const params = {toEmail: reportData.email, imageTitle: reportData.title, creatorNickname: reportData.nickname,
+                        phrase: randomPhrase, imageUrl: reportData.uri ,proveUrl: `https://github.io/ourstock/profile/prove-list` ,thens:() => {
+                            console.log('then');
+                            setModal(false);
+                            setReportData({ ...reportData, phrase: randomPhrase });
+                            setCompleteModal(true);
+                        }, errs: () => console.log('failed to send mail')}
+                    sendMail({...params});
+                });
             }}
           >
             Request for Proof
@@ -224,7 +225,7 @@ const ReportListPage = () => {
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                   <LargeButton
                     onClick={() => {
-                      setReportData({ nickname: el.creator, title: el.title, email: 'email' });
+                      setReportData({ nickname: el.creator, title: el.title, email: 'email', uri: el.uri });
                       setModal(true);
                     }}
                     style={{ width: '114px', minHeight: '30px', height: '30px' }}
